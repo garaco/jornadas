@@ -16,6 +16,10 @@ class Route{
   			   ['url' => 'usuarios/save',				'ctrl' => 'usuariosController@save',	    					'type' => 'admin'],
            ['url' => 'usuarios/del',				    'ctrl' => 'usuariosController@del',  						'type' => 'admin'],
 
+           ['url' => 'empleados',					    'ctrl' => 'empleadosController@index',	    				'type' => 'admin'],
+  			   ['url' => 'empleados/save',				'ctrl' => 'empleadosController@save',	    					'type' => 'admin'],
+           ['url' => 'empleados/del',				    'ctrl' => 'empleadosController@del',  						'type' => 'admin'],
+
            ['url' => 'logout', 					        'ctrl' => 'AuthController@logout', 					    	'type' => 'admin'],
     		   ['url' => 'auth', 						        'ctrl' => 'AuthController@login', 				    		'type' => 'admin'],
 

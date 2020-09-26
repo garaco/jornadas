@@ -12,7 +12,7 @@ class DB {
 		$this->user="root";
 		$this->pass="";
 		$this->host="localhost";
-		$this->ddbb="garaco_venta";
+		$this->ddbb="jornadas";
 	}
 
 	function connect(){
