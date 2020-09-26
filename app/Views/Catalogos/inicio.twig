@@ -1,0 +1,89 @@
+{% extends 'template/temp.twig' %}
+
+{% block title 'Inicio' %}
+
+{% block body %}
+
+<div class="container">
+  <div class="row">
+    {% if type == 'admin' %}
+    <div class="col-sm-3 col-md-3" style="width: 25%">
+      <a class="text-decoration-none" href="venta_general">
+        <div class="card" id="scale">
+          <img src="{{resource('img/venta.jpg')}}" class="card-img-top" alt="...">
+          <div class="card-body bg-primary">
+            <p class="card-text text-center text-white">Mis ventas.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3" style="width: 25%">
+      <a class="text-decoration-none" href="productos">
+        <div class="card" id="scale">
+          <img src="{{resource('img/productos.jpg')}}" class="card-img-top" alt="...">
+          <div class="card-body bg-primary">
+            <p class="card-text text-center text-white">Productos.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3" style="width: 25%">
+      <a class="text-decoration-none" href="entradas">
+        <div class="card" id="scale">
+          <img src="{{resource('img/almacen.jpg')}}" class="card-img-top" alt="...">
+          <div class="card-body bg-primary">
+            <p class="card-text text-center text-white">Entradas.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <div class="col-sm-3 col-md-3" style="width: 25%">
+      <a class="text-decoration-none" href="grafico">
+        <div class="card" id="scale">
+          <img src="{{resource('img/informe.jpg')}}" class="card-img-top" alt="...">
+          <div class="card-body bg-primary">
+            <p class="card-text text-center text-white">Informes.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    {% else %}
+<div class="">
+
+</div>
+    <div class="col-sm-3 col-md-6" >
+      <div style="width: 50%">
+        <a class="text-decoration-none" href="venta_general">
+          <div class="card" id="scale">
+            <img src="{{resource('img/venta.jpg')}}" class="card-img-top" alt="...">
+            <div class="card-body bg-primary">
+              <p class="card-text text-center text-white">Mis ventas.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="col-sm-3 col-md-6" >
+      <div style="width: 50%">
+        <a class="text-decoration-none" href="grafico">
+          <div class="card" id="scale">
+            <img src="{{resource('img/informe.jpg')}}" class="card-img-top" alt="...">
+            <div class="card-body bg-primary">
+              <p class="card-text text-center text-white">Informes.</p>
+            </div>
+          </div>
+        </a>
+      </div>
+
+    </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock %}

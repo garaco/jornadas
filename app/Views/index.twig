@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link rel="stylesheet" href="{{ resource('bootstrap/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ resource('bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ resource('font-awesome/css/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ resource('css/login.css') }}">
+    <link rel="icon" type="image/png" href="{{ resource('img/logo.png') }}">
+
+    <title>Ingresar | Punto de Venta</title>
+</head>
+<body class="text-center">
+
+  <div class="login container">
+    <br><br>
+    <form action="{{('auth')}}" method="POST" class="form-signin">
+      <img class="mb-4" src="{{ resource('img/logo_letra.png') }}" alt="" width="72" height="72">
+     <h1 class="h3 mb-3 font-weight-normal">Por favor, ingrese sus datos.</h1>
+
+     <label for="inputEmail" class="sr-only">Usuario</label>
+     <input type="text" name="user" class="form-control" placeholder="Nombre de usuario" required autocomplete="off" autofocus>
+     <br>
+     <label for="inputPassword" class="sr-only">Contraseña</label>
+     <input type="password" name="pass" class="form-control" placeholder="Contraseña" required>
+
+     <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+
+   </form>
+   {% if msg  %}
+   <div class="alert alert-danger alert-dismissible fade show" style="margin:0; padding:0;" role="alert">
+      <p style="font-size:14px;margin-top:5px;" >Usuario y/o contraseña son incorrectos.
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>
+   {% endif %}
+  </div>
+  <script type="text/javascript" src="{{ resource('jquery/jquery.min.js') }}"></script>
+  <script type="text/javascript" src="{{ resource('bootstrap/js/bootstrap.js') }}"></script>
+  <script type="text/javascript">
+  setTimeout('close()',5000);
+  function close(){
+    $('.alert').alert('close')
+  }
+
+  </script>
+</body>
+</html>

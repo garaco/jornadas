@@ -1,0 +1,37 @@
+.alert-color{
+  background-color: #004fff;
+  color: #f9f9f9;
+}
+.ga{
+  background-color: #004fff;
+  color: #f9f9f9;
+}
+.selectTable{
+  background-color: #007dff;
+  color: #f9f9f9;
+}
+.selectTable:active{
+  background-color: #007dff;
+  color: #f9f9f9;
+}
+.selectTable:hover{
+  background-color: #0047ff;
+  color: #f9f9f9;
+}
+.scale:hover{
+  transform: scale(1.1);
+}
+::-webkit-scrollbar{
+  width: 6px;
+  background: #c3c3c3;
+}
+::-webkit-scrollbar-thumb{
+  background: #004fff;
+  border-radius: 5px;
+}
+#scale:hover{
+  transform: scale(1.1);
+  -webkit-box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+  box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+}

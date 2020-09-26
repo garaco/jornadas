@@ -1,0 +1,41 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Usuarios' %}
+
+{% block tabla %}
+    <table id="table" class="table thead-light table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>Usuario</th>
+            <th>Nombre</th>
+            <th>Perfil</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for d in usuarios %}
+            <tr>
+                <td>{{ d.NombreUser }}</td>
+                <td>{{ d.Nombres }}  {{ d.Apellidos }}</td>
+              <td class="text-center">
+                {% if d.Tipo == 'admin' %}
+                  administrador
+                {% else %}
+                  vendedor
+                {% endif %} </td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.IdUser }}" data-model="{{ modelo }}" data-operation="Editar">
+                          <i class="fa fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.IdUser }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

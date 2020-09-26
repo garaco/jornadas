@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Error 403</title>
+        <link rel="icon" type="image/png" href="{{ resource('img/logo.png') }}">
+        <style media="screen">
+          body{
+            background: #f1f0f0;
+          }
+          .padre {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5%;
+          }
+
+          .hijo {
+            background: #fff;
+            width: 50%;
+            height: 450px;
+            border: 1px solid #989898;
+            -moz-border-radius: 15px;
+            -webkit-border-radius:15px;
+            padding: 10px;
+            -webkit-box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+            -moz-box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+            box-shadow: 0px 12px 23px -5px rgba(0,0,0,0.75);
+          }
+          .txt{
+            text-align: center;
+            font-family: sans-serif;
+          }
+          .btn-borde {
+              padding: .375rem .75rem;
+              border: 1px solid #007bff;
+              border-radius: .25rem;
+              color: #007bff;
+              transition: color .15s ease-in-out,
+                background-color .15s ease-in-out;
+            }
+
+            .btn-borde:hover, .btn-borde:active, .btn-borde:focus {
+              color: #fff;
+              background-color: #007bff;
+              text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+      <div class="padre">
+        <div class="hijo txt">
+          <br><br>
+          <img src="{{ resource('img/403.png') }}" alt="">
+          <h1 >Error 403</h1>
+          <br>
+          <p>Acceso Restringido</p>
+          <p>Usted no cuenta con suficientes privilegios. Solo personal Autorizado</p>
+          <a class="btn-borde" type="button"  href="{{ route('home') }}">Ir a Inicio</a>
+        </div>
+
+      </div>
+
+    </body>
+</html>

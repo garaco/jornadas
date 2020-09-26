@@ -1,0 +1,24 @@
+{
+    "name": "Web Garaco",
+    "description": "Aplicacion web dinamica",
+    "authors": [
+        {
+            "name": "Alejandro Garacia",
+            "email": "ale17garaco@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "files": [
+            "app/Helper/twig.php",
+            "app/Helper/request.php",
+            "app/Helper/response.php"
+        ]
+    },
+    "require": {
+        "oodle/krumo": "*",
+        "twig/twig": "~1.0"
+    }
+}

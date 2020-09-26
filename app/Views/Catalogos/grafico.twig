@@ -1,0 +1,17 @@
+{% extends 'template/temp.twig' %}
+
+{% block title 'Informes de venta' %}
+
+{% block body %}
+
+
+<div class="container">
+  <div class="row">
+    <input type="hidden" id="datos" value="{{grafica}}">
+    <div class="col-sm-12">
+      <h3 class="text-center" > ventas por mes </h3>
+      <div id="grafico"></div>
+    </div>
+</div>
+
+{% endblock %}

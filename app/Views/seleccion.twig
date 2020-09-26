@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="{{ resource('bootstrap/css/bootstrap.css') }}">
+  <link rel="stylesheet" href="{{ resource('css/custom-siderbar.css') }}">
+  <link rel="stylesheet" href="{{ resource('css/style.css') }}">
+  <link rel="stylesheet" href="{{ resource('font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ resource('datatables/datatables.min.css') }}" >
+  <link rel="stylesheet" href="{{ resource('datatables/DataTables-1.10.20/css/dataTables.bootstrap4.min.css') }}" >
+  <link rel="icon" type="image/png" href="{{ resource('img/logo.png') }}">
+
+    <title>Selecionar | Punto de Venta</title>
+</head>
+<body>
+<div class="row" id="wrapper">
+    <div class="contentPage">
+      <div class="container-fluid border">
+        <div class="row justify-content-md-center">
+          <div class="col-sm-12 alert-color">
+              <h3 class="text-center">Seleccion de Empresa</h3>
+          </div>
+        </div>
+          <div class="side-body"><br>
+          <form action="{{('seleccion/empresa')}}" method="POST">
+            <div class="row justify-content-center">
+              <div class="col-sm-4">
+                <select class="form-control" name="select" id="select">
+                  <option value="0|''|''|''|{{ resource('img/relleno.png') }}"> Selecione una empresa </option>
+                  {% for d in empresa %}
+                    {% if d.atc == 'Si' %}  
+                    <option value="{{ d.IdEmpresa }}|{{ d.Nombre }}|{{ d.RazonSocial }}|{{ d.Rfc }}|{{ d.Img }}">
+                     {{ d.Nombre }} </option>
+                    {% endif %} 
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-sm-2">
+              <button class="btn btn-primary" id="send" type="submit" disabled >Aceptar</button>
+              </div>
+            </div>
+         </form>
+         <br><hr>
+
+         <div class="row justify-content-md-center">
+
+           <div class="col-sm-5 text-center">
+             <div class="card border-primary">
+              <div class="card-header bg-primary text-white">Logo</div>
+              <div class="card-body">
+              <output id="list" >
+                <img src="{{ resource('img/relleno.png') }}" class="thumb" width="180" height="180">
+              </output>
+              </div>
+            </div>
+           </div>
+
+             <div class="col-sm-5">
+             <br>
+               <div class="row">
+                 <div class="col-sm-12">
+                   <label for="nombre" class="control-label">Nombre</label>
+                   <input type="text" name="Nombre" id="Nombre" value=""
+                          disabled class="form-control">
+                 </div>
+                 <div class="col-sm-12">
+                   <label for="siglas" class="control-label">Razón Social</label>
+                   <input type="text" name="RazonSocial" id="RazonSocial" value="" class="form-control"
+                          disabled>
+                 </div>
+                 <div class="col-sm-12">
+                     <label for="nombre" class="control-label">RFC</label>
+                     <input type="text" name="Rfc" id="Rfc" value=""
+                            class="form-control" disabled>
+                 </div>
+               </div>
+
+             </div>
+         </div>
+         <br><br><br><br>
+
+          </div>
+      </div>
+    </div>
+</div>
+<script type="text/javascript" src="{{ resource('jquery/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ resource('bootstrap/js/bootstrap.js') }}"></script>
+<script type="text/javascript" src="{{ resource('js/script.js') }}"></script>
+<script type="text/javascript" src="{{ resource('datatables/datatables.min.js') }}"></script>
+</body>
+</html>

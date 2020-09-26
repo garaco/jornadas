@@ -1,0 +1,19 @@
+{% extends 'template/temp.twig' %}
+
+{% block title 'Listado de Datos' %}
+
+{% block body %}
+      <div class="col-sm-12 text-right">
+          <button type="button" class="btn btn-success btn-sm" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#operationModal" data-id="0" data-model="{{ modelo }}" data-operation="Agregar">
+              <i class="fa fa-plus"></i> Agregar registro
+          </button>
+      </div>
+        <div class="clearfix"></div>
+
+        <div class="table table-sm table-responsive" style="margin-top: 20px">
+            {% block tabla %}
+
+            {% endblock %}
+        </div>
+
+{% endblock %}
