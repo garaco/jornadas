@@ -1,0 +1,34 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Descansos' %}
+
+{% block tabla %}
+    <table id="table" class="table thead-light table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>Empeado</th>
+            <th>Dias de Descanso</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for d in descanso %}
+            <tr>
+                <td>{{ d.empleado }}</td>
+                <td>{{ d.dias }}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                          <i class="fa fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -18,6 +18,7 @@ class EmpleadosController{
 
 					$save->id = $_POST['id'];
           $save->codigo = $_POST['code'];
+					$save->rfc = $_POST['rfc'];
           $save->nombre = $_POST['name'];
           $save->apellidos = $_POST['surname'];
 					$save->id_categoria = $_POST['categoria'];

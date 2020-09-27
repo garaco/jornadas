@@ -7,6 +7,7 @@
         <thead>
         <tr>
             <th>Identificador</th>
+            <th>R.F.C.</th>
             <th>Nombre</th>
             <th>Apellidos</th>
             <th>Categoria</th>
@@ -19,16 +20,20 @@
         {% for d in empleados %}
             <tr>
                 <td>{{ d.codigo }}</td>
+                <td>{{ d.rfc }}</td>
                 <td>{{ d.nombre }}</td>
                 <td>{{ d.apellidos }}</td>
                 <td>{{ d.categoria }}</td>
                 <td>{{ d.activo }}</td>
                 <td class="text-center">
                     <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                      <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                      <button type="button" class="btn btn-sm btn-success" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Horario">
+                          <i class="fa fa-calendar"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-primary" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
                           <i class="fa fa-edit"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-danger" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                      <button type="button" class="btn btn-sm btn-danger" id="option3" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
                           <i class="fa fa-trash"></i>
                       </button>
                     </div>

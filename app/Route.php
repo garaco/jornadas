@@ -24,6 +24,15 @@ class Route{
   			   ['url' => 'categorias/save',				'ctrl' => 'categoriasController@save',	    					'type' => 'admin'],
            ['url' => 'categorias/del',				    'ctrl' => 'categoriasController@del',  						'type' => 'admin'],
 
+
+           ['url' => 'horarios',					    'ctrl' => 'HorariosController@index',	    				'type' => 'admin'],
+  			   ['url' => 'horarios/save',				'ctrl' => 'HorariosController@save',	    					'type' => 'admin'],
+           ['url' => 'horarios/del',				    'ctrl' => 'HorariosController@del',  						'type' => 'admin'],
+
+           ['url' => 'descansos',					    'ctrl' => 'DescansosController@index',	    				'type' => 'admin'],
+          ['url' => 'descansos/save',				'ctrl' => 'DescansosController@save',	    					'type' => 'admin'],
+           ['url' => 'descansos/del',				    'ctrl' => 'DescansosController@del',  						'type' => 'admin'],
+
            ['url' => 'logout', 					        'ctrl' => 'AuthController@logout', 					    	'type' => 'admin'],
     		   ['url' => 'auth', 						        'ctrl' => 'AuthController@login', 				    		'type' => 'admin'],
 
