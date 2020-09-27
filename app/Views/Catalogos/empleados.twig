@@ -1,0 +1,40 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Empleados' %}
+
+{% block tabla %}
+    <table id="table" class="table thead-light table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>Identificador</th>
+            <th>Nombre</th>
+            <th>Apellidos</th>
+            <th>Categoria</th>
+            <th>Activo</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for d in empleados %}
+            <tr>
+                <td>{{ d.codigo }}</td>
+                <td>{{ d.nombre }}</td>
+                <td>{{ d.apellidos }}</td>
+                <td>{{ d.categoria }}</td>
+                <td>{{ d.activo }}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                          <i class="fa fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
