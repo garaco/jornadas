@@ -123,64 +123,45 @@ $(document).ready(function() {
     });
 });
 
-function img(){
-  function archivo(evt) {
-      var files = evt.target.files; // FileList object
+function dias(){
+  let id = $("#empleado").val();
 
-      // Obtenemos la imagen del campo "file".
-      for (var i = 0, f; f = files[i]; i++) {
-        //Solo admitimos imágenes.
-        if (!f.type.match('image.*')) {
-            continue;
-        }
-
-        var reader = new FileReader();
-
-        reader.onload = (function(theFile) {
-            return function(e) {
-              // Insertamos la imagen
-             document.getElementById("list").innerHTML = ['<img class="thumb" width="160" height="160" src="', e.target.result,'" title="', escape(theFile.name), '"/>'].join('');
-            };
-        })(f);
-
-        reader.readAsDataURL(f);
+  $.ajax({
+      url: 'jornadas_dias',
+      type: 'POST',
+      data: {
+          id: id,
+      },
+      success: function (data) {
+        $('#dia option').remove();
+        $("#dia").prepend(data)
       }
-  }
-
-  document.getElementById('files').addEventListener('change', archivo, false);
+  });
 }
 
-$('#select').on('change', function(){
-  var val = $('#select').val();
-  var datos = val.split("|");
+function calculo(){
+  let id = $("#empleado").val();
+  let salida = $("#salida").val();
+  let dia = $("#dia").val();
+  var datos;
 
-  if(datos[0]==0){
-    $('#send').attr("disabled", true);
-    $('#Nombre').val('');
-    $('#RazonSocial').val('');
-    $('#Rfc').val('');
-    document.getElementById("list").innerHTML ='<img src="'+datos[4]+'" class="thumb" width="180" height="180">';
-  }else{
-    $('#Nombre').val(datos[1]);
-    $('#RazonSocial').val(datos[2]);
-    $('#Rfc').val(datos[3]);
-    document.getElementById("list").innerHTML = '<img src="'+datos[4]+'" class="thumb" width="180" height="180">';
-    $('#send').attr("disabled", false);
-  }
-
-});
-
-  if($('#data-model').val() == "informe"){
-    var datos = $('#datos').val();
-    datos = datos.split(',');
-
-    var data = [
-    {
-      x: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-      y: datos ,
-      type: 'bar',
-    }
-    ];
-
-    Plotly.newPlot('grafico', data);
-  }
+  $.ajax({
+      url: 'jornadas_horas_extras',
+      type: 'POST',
+      data: {
+          id: id,
+          salida:salida,
+          dia:dia
+      },
+      success: function (data) {
+        $("#label-horas").html('<h4 style="text-align:center;">Horas Extras</h4>');
+        $("#panel-horas").removeClass("visible");
+        datos = data.split('|');
+        $("#horas").val(datos[0]);
+        $("#inicio_extra").val(datos[1]);
+        $("#final_extra").val(datos[2]);
+        $("#btn-save").attr("disabled",false);
+        $
+      }
+  });
+}

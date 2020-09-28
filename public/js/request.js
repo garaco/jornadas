@@ -85,18 +85,6 @@ function Refresh(model){
   });
 }
 
-  function data(id,type){
-    alert('algo');
-    // $.ajax({
-    //     url: 'Visualiza',
-    //     type: 'POST',
-    //     data: {
-    //         id: 'id,
-    //         type:type
-    //     }
-    // });
-  }
-
 function Table() {
     $('#table').DataTable(
       {

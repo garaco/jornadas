@@ -1,0 +1,38 @@
+{% extends 'Catalogos/catalogo.twig' %}
+
+{% block title 'Entradas/Salidas' %}
+
+{% block tabla %}
+    <table id="table" class="table thead-light table-bordered table-condensed table-hover">
+        <thead>
+        <tr>
+            <th>Empeado</th>
+            <th>Dia</th>
+            <th>Entrada</th>
+            <th>Salida</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <!-- Contenido de la tabla -->
+        {% for d in horario %}
+            <tr>
+                <td>{{ d.empleado }}</td>
+                <td>{{ d.dia }}</td>
+                <td>{{ d.entrada |date('h:i a') }}</td>
+                <td>{{ d.salida |date('h:i a') }}</td>
+                <td class="text-center">
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                      <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Editar">
+                          <i class="fa fa-edit"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-danger" id="option2" data-toggle="modal" data-target="#operationModal" data-id="{{ d.id }}" data-model="{{ modelo }}" data-operation="Eliminar">
+                          <i class="fa fa-trash"></i>
+                      </button>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
