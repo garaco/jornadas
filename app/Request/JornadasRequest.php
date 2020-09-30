@@ -95,7 +95,7 @@ class JornadasRequest {
                     <option value="Horas Triples" <?= ($joradas->tipo == 'Horas Triples') ? ' selected' : '' ?>>Horas Triples</option>
                     <option value="Domingos" <?= ($joradas->tipo == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
                     <option value="Festivos" <?= ($joradas->tipo == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
-                    <option value="Prima Dominical" <?= ($joradas->tipo == 'Prima') ? ' selected' : '' ?> >Prima Dominical</option>
+                    <option value="Prima Dominical" <?= ($joradas->tipo == 'Prima Dominical') ? ' selected' : '' ?> >Prima Dominical</option>
                   </select>
               </div>
 
