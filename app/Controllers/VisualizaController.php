@@ -294,6 +294,15 @@ class VisualizaController extends TCPDF {
 					<td width="5%" style="border: 1px solid #000;" >'.$sum_f.'</td>
 					</tr>
 					</table>
+
+					<table align="center" style="padding-top:70px; width:100%;">
+					<tr>
+					<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
+					Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
+					E-mail: resertux@unam.mx - www.ib.unam.mx <br>
+					</td>
+					</tr>
+					</table>
 					';
 
 
