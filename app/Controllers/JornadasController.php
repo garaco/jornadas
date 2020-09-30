@@ -5,10 +5,10 @@ use App\Models\HorariosModel;
 
 class JornadasController{
 	public function index() {
-      $horario = new JornadasModel();
-      $horarios = $horario->getAllHorarios();
+      $jornada= new JornadasModel();
+      $jornadas = $jornada->getAllHoras();
 
-			return view('Catalogos/jornadas.twig', ['horario' => $horarios, 'modelo' => 'Jornadas','user'=>$_SESSION['Username'],'type'=>$_SESSION['type']]);
+			return view('Catalogos/jornadas.twig', ['jornadas' => $jornadas, 'modelo' => 'Jornadas','user'=>$_SESSION['Username'],'type'=>$_SESSION['type']]);
     }
 
     public function save(){
@@ -20,8 +20,14 @@ class JornadasController{
 					$save->id = $_POST['id'];
           $save->id_empleado = $_POST['empleado'];
 					$save->dia = $_POST['dia'];
-          $save->entrada = $_POST['entrada'];
+					$save->fecha = $_POST['fecha'];
+					$save->entrada = $_POST['entrada'];
           $save->salida = $_POST['salida'];
+					$save->inicio_extra=$_POST['inicio_extra'];
+					$save->final_extra=$_POST['final_extra'];
+					$save->horas_extras=$_POST['horas'];
+					$save->tipo=$_POST['tipo'];
+
 
           if($_POST['id'] == 0){
           	$save->add();

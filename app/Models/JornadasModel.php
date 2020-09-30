@@ -34,18 +34,29 @@ class JornadasModel extends Model {
 	}
 
 	public function add(){
-		$query = "INSERT INTO ".self::$tablename." (id, dia, entrada, salida, id_empleado) VALUES (0, '{$this->dia}', '{$this->entrada}', '{$this->salida}', {$this->id_empleado});";
+		$query = "INSERT INTO ".self::$tablename." (id, fecha, dia, entrada, salida, horas_extras, inicio_extra, final_extra, id_empleado, tipo)
+			VALUES (0, '{$this->fecha}', '{$this->dia}', '{$this->entrada}', '{$this->salida}', '{$this->horas_extras}', '{$this->inicio_extra}', '{$this->final_extra}', '{$this->id_empleado}', '{$this->tipo}');";
 		$sql = Executor::doit($query);
+		var_dump($query);
 		return $sql[1];
 	}
 
 	public function update(){
-		$sql = "UPDATE ".self::$tablename." SET dia = '{$this->dia}', entrada = '{$this->entrada}', salida = '{$this->salida}', id_empleado = {$this->id_empleado} WHERE id = {$this->id};";
+		$sql = "UPDATE ".self::$tablename." SET fecha = '{$this->fecha}', dia = '{$this->dia}', entrada = '{$this->entrada}', salida = '{$this->salida}', horas_extras = '{$this->horas_extras}', inicio_extra = '{$this->inicio_extra}',
+					final_extra = '{$this->final_extra}', id_empleado = {$this->id_empleado}, tipo = '{$this->tipo}' WHERE id = $this->id;";
 		Executor::doit($sql);
 	}
 
 	public function getAllHorarios(){
 		$sql = "select j.*, (select concat(nombre,' ',apellidos) from empleados where id = j.id_empleado ) as empleado from jornadas_empleados as j order by id desc";
+		$query = Executor::doit($sql);
+
+		return self::many($query[0]);
+	}
+
+	public function getAllHoras(){
+		$sql = "select d.*, (select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+		from dias_laborados as d order by id desc";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);

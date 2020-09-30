@@ -7,9 +7,9 @@ use App\Models\JornadasModel;
 
 class JornadasRequest {
     function Agregar(){
-        $jorada = new JornadasModel();
+        $joradas = new JornadasModel();
         if ($_POST['id'] != 0)
-            $jorada = $jorada->getById($_POST['id']);
+            $jorada = $joradas->getById($_POST['id']);
 
         ?>
         <form id="form" action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
@@ -31,7 +31,13 @@ class JornadasRequest {
                 <div class="col-md-6 " id="select-dia">
                     <label for="name" class="control-label">Dias de la Semana/Horas</label>
                     <select class="form-control" name="dia" id="dia">
-                      <option value="<?php $jorada->dia ?>" ><?php $jorada->dia ?></option>
+                      <?php
+                      $horas=''; if($_POST['id'] != 0){
+                        $horas = $joradas->getByEmpleado($jorada->id_empleado);
+                      }
+                        foreach ($horas as $g ){ ?>
+                        <option value="<?= $g->dia; ?>"<?= ($jorada->dia == $g->dia) ? ' selected' : '' ?> ><?= $g->dia.' de '.$g->entrada.' a '.$g->salida; ?> </option>
+                      <?php } ?>
                     </select>
                 </div>
 
@@ -63,9 +69,9 @@ class JornadasRequest {
             </div>
             <hr>
             <div id="label-horas">
-
+                <?= ($_POST['id'] != 0)?'<h4 style="text-align:center;">Horas Extras</h4>':''; ?>
             </div>
-            <div class="row form-group visible" id="panel-horas">
+            <div class="row form-group <?= ($_POST['id'] != 0)?'':'visible'; ?> "  id="panel-horas">
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Inicio de Horas Extras</label>
@@ -85,13 +91,13 @@ class JornadasRequest {
               <div class="col-md-3">
                   <label for="surname" class="control-label">Tipo Horas</label>
                   <select class="form-control" name="tipo" id="tipo">
-                    <option value="N/A" >N/A</option>
-                    <option value="Horas Extras" >Horas Extras</option>
-                    <option value="Horas Dobles" >Horas Dobles</option>
-                    <option value="Horas Triples" >Horas Triples</option>
-                    <option value="Domingos" >Domingos</option>
-                    <option value="Festivos" >Festivos</option>
-                    <option value="Prima Dominical" >Prima Dominical</option>
+                    <option value="N/A" <?= ($jorada->tipo == 'N/A') ? ' selected' : '' ?> >N/A</option>
+                    <option value="Horas Extras" <?= ($jorada->tipo == 'Horas Extras') ? ' selected' : '' ?>>Horas Extras</option>
+                    <option value="Horas Dobles" <?= ($jorada->tipo == 'Horas Dobles') ? ' selected' : '' ?>>Horas Dobles</option>
+                    <option value="Horas Triples" <?= ($jorada->tipo == 'Horas Triples') ? ' selected' : '' ?>>Horas Triples</option>
+                    <option value="Domingos" <?= ($jorada->tipo == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                    <option value="Festivos" <?= ($jorada->tipo == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
+                    <option value="Prima Dominical" <?= ($jorada->tipo == 'Prima') ? ' selected' : '' ?> >Prima Dominical</option>
                   </select>
               </div>
 
@@ -103,7 +109,7 @@ class JornadasRequest {
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-remove"></i>
                         Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success" id="btn-save" disabled="true"><i class="fa fa-save"></i> Guardar</button>
+                    <button type="submit" class="btn btn-success" id="btn-save" <?= ($_POST['id'] != 0)?'':'disabled="true"'; ?> ><i class="fa fa-save"></i> Guardar</button>
                 </div>
             </div>
         </form>
@@ -115,9 +121,7 @@ class JornadasRequest {
         $jorada = $jorada->getById($_POST['id'],'id'); ?>
         <form id="form" action="<?= route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $jorada->id; ?>">
-            <h5>Desea eliminar el dia
-                '<?= $jorada->dia; ?>
-                '?</h5>
+            <h5>Desea eliminar el registro?</h5>
 
             <div class="form-group">
               <div class="col-sm-12 text-right">
@@ -133,13 +137,15 @@ class JornadasRequest {
 
     function Refresh(){
         $can = new JornadasModel();
-        $jorada = $can->getAllHorarios();
+        $jorada = $can->getAllHoras();
         foreach ($jorada as $c) { ?>
             <tr>
               <td><?= $c->empleado ?></td>
               <td><?= $c->dia; ?></td>
-              <td><?= date('h:i a', strtotime($c->entrada)); ?></td>
-              <td><?= date('h:i a', strtotime($c->salida)); ?></td>
+              <td><?= $c->fecha; ?></td>
+              <td><?= date('h:i a', strtotime($c->inicio_extra)); ?></td>
+              <td><?= date('h:i a', strtotime($c->final_extra)); ?></td>
+              <td><?= $c->tipo; ?></td>
                 <td class="text-center">
                   <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <button type="button" class="btn btn-sm btn-primary" id="option1" data-toggle="modal" data-target="#operationModal" data-id="<?= $c->id; ?>" data-model="<?=$_POST['model']; ?>" data-operation="Editar">
