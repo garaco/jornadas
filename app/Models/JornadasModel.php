@@ -16,6 +16,7 @@ class JornadasModel extends Model {
 	public $id_empleado;
 	public $empleado;
 	public $tipo;
+	public $semana;
 
 	function __construct(){
 		self::$tablename= 'dias_laborados';
@@ -30,6 +31,7 @@ class JornadasModel extends Model {
 		$this->id_empleado = '';
 		$this->empleado = '';
 		$this->tipo = '';
+		$this->semana = '';
 
 	}
 
@@ -67,6 +69,24 @@ class JornadasModel extends Model {
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);
+	}
+
+	public function getByExtras($semana=''){
+		$sql="select d.*,WEEK(d.fecha,1) as semana,
+			(select rfc from empleados where id = d.id_empleado ) as rfc,
+			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} order by id_empleado";
+		$query = Executor::doit($sql);
+
+		return self::many($query[0]);
+	}
+
+	public function getSumHours($semana,$id,$tipo){
+		$sql="select  TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(d.horas_extras))), '%H:%i')  as horas_extras
+		from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and id_empleado = {$id} and FIND_IN_SET(tipo, '{$tipo}')";
+		$query = Executor::doit($sql);
+
+		return self::one($query[0]);
 	}
 
 	public function getcalculo($salida,$dia,$id_empleado){

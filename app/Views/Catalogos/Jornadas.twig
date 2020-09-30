@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ d.empleado }}</td>
                 <td>{{ d.dia }}</td>
-                <td>{{ d.fecha }}</td>
+                <td>{{ d.fecha |date('d/m/Y') }}</td>
                 <td>{{ d.inicio_extra |date('h:i a') }}</td>
                 <td>{{ d.final_extra |date('h:i a') }}</td>
                 <td>{{ d.tipo }}</td>

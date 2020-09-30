@@ -19,8 +19,9 @@ class HorariosRequest {
               <div class="col-md-6">
                   <label for="Apellidos" class="control-label">Empleado</label>
                   <select class="form-control" name="empleado" id="empleado">
-                    <?php $emp = new EmpleadosModel();
-                     $emp = $emp->getAll('id');
+                    <?php
+                     $emp = new EmpleadosModel();
+                      $emp = $emp->getAll('id');
                       foreach ($emp as $g ){ ?>
                       <option value="<?= $g->id; ?>"<?= ($horario->id_empleado == $g->id) ? ' selected' : '' ?>><?= $g->nombre; ?> <?= $g->apellidos; ?></option>
                     <?php } ?>
@@ -35,9 +36,9 @@ class HorariosRequest {
                       <option value="Miercoles" <?= ($horario->dia == 'Miercoles') ? ' selected' : '' ?>>Miercoles</option>
                       <option value="Jueves" <?= ($horario->dia == 'Jueves') ? ' selected' : '' ?>>Jueves</option>
                       <option value="Viernes" <?= ($horario->dia == 'Viernes') ? ' selected' : '' ?>>Viernes</option>
-                      <option value="Sabado" <?= ($horario->dia == 'Sabado') ? ' selected' : '' ?>>Sabado</option>
-                      <option value="Domingo" <?= ($horario->dia == 'Domingo') ? ' selected' : '' ?>>Domingo</option>
-                      <option value="Festivo" <?= ($horario->dia == 'Festivo') ? ' selected' : '' ?>>Festivo</option>
+                      <option value="Sabados" <?= ($horario->dia == 'Sabados') ? ' selected' : '' ?>>Sabados</option>
+                      <option value="Domingos" <?= ($horario->dia == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                      <option value="Festivos" <?= ($horario->dia == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
                     </select>
                 </div>
                 <div class="col-md-6 ">

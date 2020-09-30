@@ -43,6 +43,7 @@ class Route{
            ['url' => 'logout', 					        'ctrl' => 'AuthController@logout', 					    	'type' => 'admin'],
     		   ['url' => 'auth', 						        'ctrl' => 'AuthController@login', 				    		'type' => 'admin'],
 
+           ['url' => 'reportes',					    'ctrl' => 'ReportesController@index',	    				'type' => 'admin'],
            ['url' => 'visualiza',					    'ctrl' => 'VisualizaController@index',	    				'type' => 'admin'],
 
            ['url' => 'informe', 					        	'ctrl' => 'InformacionController@index',		    			'type' => 'admin'],

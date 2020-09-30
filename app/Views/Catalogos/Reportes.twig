@@ -1,0 +1,51 @@
+{% extends 'Catalogos/base.twig' %}
+
+{% block title 'Reportes' %}
+
+{% block tabla %}
+    <table  class="table thead-light table-hover">
+        <thead>
+        <tr>
+            <th>Reporte</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody id="table-content">
+        <tr>
+          <td> Horarios de Empleados </td>
+          <td> <form action="visualiza" method="post">
+            <input type="hidden" name="type" value="horarios">
+            <button type="submit" name="btn-horario" class="btn btn-success" >Generar</button>
+          </form>  </td>
+        </tr>
+
+        <tr>
+          <td> Horas Extras </td>
+          <td>
+            <form action="visualiza" method="post">
+              <div class="row">
+                <input type="hidden" name="type" value="horas_extras">
+
+                <div class="col-sm-1">
+                  <label for="">Semana:</label>
+                </div>
+                <div class="col-sm-4">
+                  <input type="week" name="semana" class="form-control" value="" required>
+                </div>
+
+                <div class="col-sm-2">
+                    <button  type="submit" name="btn-extras" class="btn btn-success" >Generar</button>
+                </div>
+
+
+              </div>
+
+
+
+          </form>
+        </td>
+        </tr>
+
+        </tbody>
+    </table>
+{% endblock %}

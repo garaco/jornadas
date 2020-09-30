@@ -18,16 +18,11 @@ class EmpleadosRequest {
             <input type="hidden" name="id" value="<?= $_POST['id'] ?>">
             <div class="row form-group">
                 <div class="col-md-4 ">
-                    <label for="name" class="control-label">Identificador</label>
-                    <input type="text" name="code" id="code" value="<?= $empleado->codigo; ?>"
-                           class="form-control" required autocomplete="off">
-                </div>
-                <div class="col-md-4 ">
                     <label for="surname" class="control-label">R.F.C.</label>
                     <input type="text" name="rfc" id="rfc" value="<?= $empleado->rfc; ?>" class="form-control" required autocomplete="off">
                 </div>
 
-                <div class="col-md-4 ">
+                <div class="col-md-4">
                     <label for="surname" class="control-label">Nombre(s)</label>
                     <input type="text" name="name" id="name" value="<?= $empleado->nombre; ?>" class="form-control" required autocomplete="off">
                 </div>
@@ -38,10 +33,11 @@ class EmpleadosRequest {
                            required autocomplete="off">
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <label for="Apellidos" class="control-label">Categoria</label>
                     <select class="form-control" name="categoria" id="categoria">
-                      <?php $categoria = new CategoriasModel();
+                      <?php
+                      $categoria = new CategoriasModel();
                        $categoria = $categoria->getAll('id');
                         foreach ($categoria as $g ){ ?>
                         <option value="<?= $g->id; ?>"<?= ($empleado->id_categoria == $g->id) ? ' selected' : '' ?>><?= $g->categoria; ?></option>
@@ -49,7 +45,7 @@ class EmpleadosRequest {
                     </select>
                 </div>
 
-                <div class="col-md-2">
+                <div class="col-md-4">
                     <label for="Apellidos" class="control-label">Activo</label>
                     <select class="form-control" name="active" id="active">
                       <option value="Si"<?= ($empleado->activo == 'Si') ? ' selected' : '' ?>>Si</option>
@@ -99,7 +95,6 @@ class EmpleadosRequest {
         $empleado = $can->getAllEmpleados('NombreUser');
         foreach ($empleado as $c) { ?>
             <tr>
-              <td><?= $c->codigo ?></td>
               <td><?= $c->rfc; ?></td>
               <td><?= $c->nombre; ?></td>
               <td><?= $c->apellidos ?></td>

@@ -9,7 +9,7 @@ class JornadasRequest {
     function Agregar(){
         $joradas = new JornadasModel();
         if ($_POST['id'] != 0)
-            $jorada = $joradas->getById($_POST['id']);
+            $joradas = $joradas->getById($_POST['id']);
 
         ?>
         <form id="form" action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
@@ -23,7 +23,7 @@ class JornadasRequest {
                     <?php $emp = new EmpleadosModel();
                      $emp = $emp->getAll('id');
                       foreach ($emp as $g ){ ?>
-                      <option value="<?= $g->id; ?>"<?= ($jorada->id_empleado == $g->id) ? ' selected' : '' ?>><?= $g->nombre; ?> <?= $g->apellidos; ?></option>
+                      <option value="<?= $g->id; ?>"<?= ($joradas->id_empleado == $g->id) ? ' selected' : '' ?>><?= $g->nombre; ?> <?= $g->apellidos; ?></option>
                     <?php } ?>
                   </select>
               </div>
@@ -33,10 +33,10 @@ class JornadasRequest {
                     <select class="form-control" name="dia" id="dia">
                       <?php
                       $horas=''; if($_POST['id'] != 0){
-                        $horas = $joradas->getByEmpleado($jorada->id_empleado);
+                        $horas = $joradas->getByEmpleado($joradas->id_empleado);
                       }
                         foreach ($horas as $g ){ ?>
-                        <option value="<?= $g->dia; ?>"<?= ($jorada->dia == $g->dia) ? ' selected' : '' ?> ><?= $g->dia.' de '.$g->entrada.' a '.$g->salida; ?> </option>
+                        <option value="<?= $g->dia; ?>"<?= ($joradas->dia == $g->dia) ? ' selected' : '' ?> ><?= $g->dia.' de '.$g->entrada.' a '.$g->salida; ?> </option>
                       <?php } ?>
                     </select>
                 </div>
@@ -47,17 +47,17 @@ class JornadasRequest {
             <div class="row form-group">
               <div class="col-md-3">
                   <label for="surname" class="control-label">Fecha</label>
-                  <input type="date" name="fecha" id="fhcha" value="<?= $jorada->fecha; ?>" class="form-control" required autocomplete="off">
+                  <input type="date" name="fecha" id="fhcha" value="<?= $joradas->fecha; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Entrada</label>
-                  <input type="time" name="entrada" id="enrada" value="<?= $jorada->entrada; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="entrada" id="enrada" value="<?= $joradas->entrada; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Salida</label>
-                  <input type="time" name="salida" id="salida" value="<?= $jorada->salida; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="salida" id="salida" value="<?= $joradas->salida; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
@@ -75,29 +75,27 @@ class JornadasRequest {
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Inicio de Horas Extras</label>
-                  <input type="time" name="inicio_extra" id="inicio_extra" value="<?= $jorada->inicio_extra; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="inicio_extra" id="inicio_extra" value="<?= $joradas->inicio_extra; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Fin de Horas Extras</label>
-                  <input type="time" name="final_extra" id="final_extra" value="<?= $jorada->final_extra; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="final_extra" id="final_extra" value="<?= $joradas->final_extra; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Horas</label>
-                  <input type="text" name="horas" id="horas" value="<?= $jorada->horas_extras; ?>" class="form-control" required autocomplete="off">
+                  <input type="text" name="horas" id="horas" value="<?= $joradas->horas_extras; ?>" class="form-control" required autocomplete="off">
               </div>
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Tipo Horas</label>
                   <select class="form-control" name="tipo" id="tipo">
-                    <option value="N/A" <?= ($jorada->tipo == 'N/A') ? ' selected' : '' ?> >N/A</option>
-                    <option value="Horas Extras" <?= ($jorada->tipo == 'Horas Extras') ? ' selected' : '' ?>>Horas Extras</option>
-                    <option value="Horas Dobles" <?= ($jorada->tipo == 'Horas Dobles') ? ' selected' : '' ?>>Horas Dobles</option>
-                    <option value="Horas Triples" <?= ($jorada->tipo == 'Horas Triples') ? ' selected' : '' ?>>Horas Triples</option>
-                    <option value="Domingos" <?= ($jorada->tipo == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
-                    <option value="Festivos" <?= ($jorada->tipo == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
-                    <option value="Prima Dominical" <?= ($jorada->tipo == 'Prima') ? ' selected' : '' ?> >Prima Dominical</option>
+                    <option value="Horas Dobles" <?= ($joradas->tipo == 'Horas Dobles') ? ' selected' : '' ?>>Horas Dobles</option>
+                    <option value="Horas Triples" <?= ($joradas->tipo == 'Horas Triples') ? ' selected' : '' ?>>Horas Triples</option>
+                    <option value="Domingos" <?= ($joradas->tipo == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                    <option value="Festivos" <?= ($joradas->tipo == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
+                    <option value="Prima Dominical" <?= ($joradas->tipo == 'Prima') ? ' selected' : '' ?> >Prima Dominical</option>
                   </select>
               </div>
 
@@ -117,10 +115,10 @@ class JornadasRequest {
     }
 
     function Eliminar(){
-        $jorada = new JornadasModel();
-        $jorada = $jorada->getById($_POST['id'],'id'); ?>
+        $joradas = new JornadasModel();
+        $joradas = $joradas->getById($_POST['id'],'id'); ?>
         <form id="form" action="<?= route($_POST['model'] . '/del'); ?>" method="POST" class="form-horizontal">
-            <input type="hidden" name="id" value="<?= $jorada->id; ?>">
+            <input type="hidden" name="id" value="<?= $joradas->id; ?>">
             <h5>Desea eliminar el registro?</h5>
 
             <div class="form-group">
@@ -137,12 +135,12 @@ class JornadasRequest {
 
     function Refresh(){
         $can = new JornadasModel();
-        $jorada = $can->getAllHoras();
-        foreach ($jorada as $c) { ?>
+        $joradas = $can->getAllHoras();
+        foreach ($joradas as $c) { ?>
             <tr>
               <td><?= $c->empleado ?></td>
               <td><?= $c->dia; ?></td>
-              <td><?= $c->fecha; ?></td>
+              <td><?= date('d/m/Y', strtotime($c->fecha)); ?></td>
               <td><?= date('h:i a', strtotime($c->inicio_extra)); ?></td>
               <td><?= date('h:i a', strtotime($c->final_extra)); ?></td>
               <td><?= $c->tipo; ?></td>
