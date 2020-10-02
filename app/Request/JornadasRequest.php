@@ -18,7 +18,7 @@ class JornadasRequest {
 
               <div class="col-md-6">
                   <label for="Apellidos" class="control-label">Empleado</label>
-                  <select class="form-control" name="empleado" id="empleado" onchange="dias();">
+                  <select class="form-control" name="empleado" id="empleado">
                     <option value="0">Seleccione un empleado</option>
                     <?php $emp = new EmpleadosModel();
                      $emp = $emp->getAll('id');
@@ -31,13 +31,14 @@ class JornadasRequest {
                 <div class="col-md-6 " id="select-dia">
                     <label for="name" class="control-label">Dias de la Semana/Horas</label>
                     <select class="form-control" name="dia" id="dia">
-                      <?php
-                      $horas=''; if($_POST['id'] != 0){
-                        $horas = $joradas->getByEmpleado($joradas->id_empleado);
-                      }
-                        foreach ($horas as $g ){ ?>
-                        <option value="<?= $g->dia; ?>"<?= ($joradas->dia == $g->dia) ? ' selected' : '' ?> ><?= $g->dia.' de '.$g->entrada.' a '.$g->salida; ?> </option>
-                      <?php } ?>
+                      <option value="Lunes" <?= ($joradas->dia == 'Lunes') ? ' selected' : '' ?>>Lunes</option>
+                      <option value="Martes" <?= ($joradas->dia == 'Martes') ? ' selected' : '' ?>>Martes</option>
+                      <option value="Miercoles" <?= ($joradas->dia == 'Miercoles') ? ' selected' : '' ?>>Miercoles</option>
+                      <option value="Jueves" <?= ($joradas->dia == 'Jueves') ? ' selected' : '' ?>>Jueves</option>
+                      <option value="Viernes" <?= ($joradas->dia == 'Viernes') ? ' selected' : '' ?>>Viernes</option>
+                      <option value="Sabados" <?= ($joradas->dia == 'Sabados') ? ' selected' : '' ?>>Sabados</option>
+                      <option value="Domingos" <?= ($joradas->dia == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                      <option value="Festivos" <?= ($joradas->dia == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
                     </select>
                 </div>
 
@@ -45,33 +46,27 @@ class JornadasRequest {
 
 
             <div class="row form-group">
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <label for="surname" class="control-label">Fecha</label>
                   <input type="date" name="fecha" id="fhcha" value="<?= $joradas->fecha; ?>" class="form-control" required autocomplete="off">
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <label for="surname" class="control-label">Entrada</label>
                   <input type="time" name="entrada" id="enrada" value="<?= $joradas->entrada; ?>" class="form-control" required autocomplete="off">
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <label for="surname" class="control-label">Salida</label>
                   <input type="time" name="salida" id="salida" value="<?= $joradas->salida; ?>" class="form-control" required autocomplete="off">
               </div>
 
-              <div class="col-md-3">
-                <br>
-                <button style="margin-top:6px;" type="button" class="btn btn-primary" onclick="calculo();"><i class="fa fa-clock-o"></i> Horas Extras</button>
-
-              </div>
-
             </div>
             <hr>
-            <div id="label-horas">
-                <?= ($_POST['id'] != 0)?'<h4 style="text-align:center;">Horas Extras</h4>':''; ?>
+            <div>
+                <h4 style="text-align:center;">Horas Extras</h4>
             </div>
-            <div class="row form-group <?= ($_POST['id'] != 0)?'':'visible'; ?> "  id="panel-horas">
+            <div class="row form-group "  id="panel-horas">
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Inicio de Horas Extras</label>

@@ -17,6 +17,8 @@ class JornadasModel extends Model {
 	public $empleado;
 	public $tipo;
 	public $semana;
+	public $categoria;
+	public $rfc;
 
 	function __construct(){
 		self::$tablename= 'dias_laborados';
@@ -32,6 +34,8 @@ class JornadasModel extends Model {
 		$this->empleado = '';
 		$this->tipo = '';
 		$this->semana = '';
+		$this->categoria = '';
+		$this->rfc = '';
 
 	}
 
@@ -76,6 +80,17 @@ class JornadasModel extends Model {
 			(select rfc from empleados where id = d.id_empleado ) as rfc,
 			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
 			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} order by id_empleado";
+		$query = Executor::doit($sql);
+
+		return self::many($query[0]);
+	}
+
+	public function getByExtrasxEmpleados($semana='',$id=''){
+		$sql="select d.*,WEEK(d.fecha,1) as semana,
+			(select rfc from empleados where id = d.id_empleado ) as rfc,
+			(select categoria from categorias where id = (select id_categoria from empleados where id = d.id_empleado )) as categoria,
+			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and id_empleado = {$id} order by id_empleado";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);

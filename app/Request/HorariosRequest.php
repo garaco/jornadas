@@ -28,8 +28,18 @@ class HorariosRequest {
                   </select>
               </div>
 
-                <div class="col-md-6 ">
-                    <label for="name" class="control-label">dia</label>
+                <div class="col-md-3 ">
+                    <label for="surname" class="control-label">Entrada</label>
+                    <input type="time" name="entrada" id="enrada" value="<?= $horario->entrada; ?>" class="form-control" required autocomplete="off">
+                </div>
+
+                <div class="col-md-3 ">
+                    <label for="surname" class="control-label">Salida</label>
+                    <input type="time" name="salida" id="salida" value="<?= $horario->salida; ?>" class="form-control" required autocomplete="off">
+                </div>
+
+                <div class="col-md-6">
+                    <label for="name" class="control-label">Dia Inicio </label>
                     <select class="form-control" name="dia" id="dia">
                       <option value="Lunes" <?= ($horario->dia == 'Lunes') ? ' selected' : '' ?>>Lunes</option>
                       <option value="Martes" <?= ($horario->dia == 'Martes') ? ' selected' : '' ?>>Martes</option>
@@ -41,14 +51,19 @@ class HorariosRequest {
                       <option value="Festivos" <?= ($horario->dia == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
                     </select>
                 </div>
-                <div class="col-md-6 ">
-                    <label for="surname" class="control-label">Entrada</label>
-                    <input type="time" name="entrada" id="enrada" value="<?= $horario->entrada; ?>" class="form-control" required autocomplete="off">
-                </div>
 
-                <div class="col-md-6 ">
-                    <label for="surname" class="control-label">Salida</label>
-                    <input type="time" name="salida" id="salida" value="<?= $horario->salida; ?>" class="form-control" required autocomplete="off">
+                <div class="col-md-6">
+                    <label for="name" class="control-label">Dia Fin</label>
+                    <select class="form-control" name="dia_fin" id="dia_fin">
+                      <option value="Lunes" <?= ($horario->dia_fin == 'Lunes') ? ' selected' : '' ?>>Lunes</option>
+                      <option value="Martes" <?= ($horario->dia_fin == 'Martes') ? ' selected' : '' ?>>Martes</option>
+                      <option value="Miercoles" <?= ($horario->dia_fin == 'Miercoles') ? ' selected' : '' ?>>Miercoles</option>
+                      <option value="Jueves" <?= ($horario->dia_fin == 'Jueves') ? ' selected' : '' ?>>Jueves</option>
+                      <option value="Viernes" <?= ($horario->dia_fin == 'Viernes') ? ' selected' : '' ?>>Viernes</option>
+                      <option value="Sabados" <?= ($horario->dia_fin == 'Sabados') ? ' selected' : '' ?>>Sabados</option>
+                      <option value="Domingos" <?= ($horario->dia_fin == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                      <option value="Festivos" <?= ($horario->dia_fin == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
+                    </select>
                 </div>
 
 
@@ -95,7 +110,7 @@ class HorariosRequest {
         foreach ($horario as $c) { ?>
             <tr>
               <td><?= $c->empleado ?></td>
-              <td><?= $c->dia; ?></td>
+              <td><?= ($c->dia!=$c->dia_fin)? $c->dia.' - '.$c->dia_fin:$c->dia; ?></td>
               <td><?= date('h:i a', strtotime($c->entrada)); ?></td>
               <td><?= date('h:i a', strtotime($c->salida)); ?></td>
                 <td class="text-center">

@@ -1,11 +1,15 @@
 <?php
 
 namespace App\Controllers;
-use App\Models\PagoModel;
+use App\Models\EmpleadosModel;
 
 class ReportesController{
 
 	public function index() {
-			 return view('Catalogos/reportes.twig', ['modelo' => 'reporte','type'=>$_SESSION['type'],'user'=>$_SESSION['Username']]);
+
+		$empleado = new EmpleadosModel();
+		$empleados = $empleado->getAllEmpleados('id');
+
+			 return view('Catalogos/reportes.twig', ['empleados' => $empleados, 'modelo' => 'reporte','type'=>$_SESSION['type'],'user'=>$_SESSION['Username']]);
     }
 }

@@ -46,6 +46,47 @@
         </td>
         </tr>
 
+        <tr>
+          <td> Horas Extras por Empleado </td>
+          <td>
+            <form action="visualiza" method="post">
+              <div class="row">
+                <input type="hidden" name="type" value="horas_extras_empleado">
+
+                <div class="col-sm-1">
+                  <label for="">Empleado:</label>
+                </div>
+
+                <div class="col-sm-5">
+
+                  <select class="form-control" name="empleado">
+                    {% for d in empleados %}
+                      <option value="{{ d.id }}"> {{ d.nombre }} {{ d.apellidos }} </option>
+                    {% endfor %}
+                  </select>
+
+                </div>
+
+                <div class="col-sm-1">
+                  <label for="">Semana:</label>
+                </div>
+                <div class="col-sm-3">
+                  <input type="week" name="semana" class="form-control" value="" required>
+                </div>
+
+                <div class="col-sm-2">
+                    <button  type="submit" name="btn-extras" class="btn btn-success" >Generar</button>
+                </div>
+
+
+              </div>
+
+
+
+          </form>
+        </td>
+        </tr>
+
         </tbody>
     </table>
 {% endblock %}

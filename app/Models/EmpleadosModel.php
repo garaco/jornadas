@@ -38,7 +38,7 @@ class EmpleadosModel extends Model {
 	}
 
 	public function getAllEmpleados(){
-		$sql="select e.*, (select categoria from categorias where id = e.id_categoria) as categoria from empleados as e order by id desc";
+		$sql="select e.*, (select categoria from categorias where id = e.id_categoria) as categoria from empleados as e order by codigo asc";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);

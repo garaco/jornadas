@@ -94,17 +94,22 @@ class VisualizaController extends TCPDF {
 			foreach ($empleado as $g) {
 				$horas = new HorariosModel();
 				$horas = $horas->getByEmpleado($g->id);
-				$hours='';
-				$ea='';$sa='';
+				$hours='';$aux='';
+				$ea='';$sa='';$hd='';$flap=false;
+ 				$c=0; $ini=''; $fin='';
+
 				foreach ($horas as $i) {
 
 					if($i->entrada != $ea && $i->salida != $sa){
+						if($i->dia != $i->dia_fin){
+							$hours.="$i->entrada a $i->salida $i->dia a $i->dia_fin ";
+						}else{
 							$hours.="$i->entrada a $i->salida $i->dia ";
-							$ea=$i->entrada;
-							$sa=$i->salida;
+						}
 					}
 
 				}
+
 
 				$descanso = new DescansosModel();
 				$descanso = $descanso->getByEmpleado($g->id);
@@ -120,7 +125,7 @@ class VisualizaController extends TCPDF {
 					<table style="width:100%; font-size:9;"  >
 							<tr>
 							<td width="8%" >'.$name[0].'</td>
-							<td width="2%">'.$cont++.'</td>
+							<td width="2%">'.$g->codigo.'</td>
 							<td width="25%">'.$g->nombre.' '.$g->apellidos.'</td>
 							<td width="10%">'.$g->rfc.'</td>
 							<td width="42%" >'.$hours.'</td>
@@ -306,10 +311,405 @@ class VisualizaController extends TCPDF {
 					';
 
 
+	}else if($_POST['type']=='horas_extras_empleado'){
+				$titulo="horas extras empleado";
+
+				$mes = array("","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+
+				$jornada = new JornadasModel();
+				$jornadas = $jornada->getByExtrasxEmpleados(date('W', strtotime($_POST['semana'])), $_POST['empleado']);
+				$dia='';
+				$lun='<br>L<br>U<br>N<br>E<br>S|||||'; $mar='<br>M<br>A<br>R<br>T<br>E<br>S|||||'; $mie='<br>M<br>I<br>E<br>R<br>C<br>O<br>L<br>E<br>S|||||';
+				$jue='<br>J<br>U<br>E<br>V<br>E<br>S|||||';$vie='<br>V<br>I<br>E<br>R<br>N<br>E<br>S|||||';$sab='<br>S<br>A<br>B<br>A<br>D<br>O<br>S|||||';
+				$dom='<br>D<br>O<br>M<br>I<br>N<br>G<br>O<br>S|||||';
+				$name='';$cat='';$rfc='';
+				$id_e='';
+				foreach ($jornadas as $g) {
+					$name = $g->empleado;
+					$cat = $g->categoria;
+					$rfc = $g->rfc;
+					$id_e = $g->id_empleado;
+					if(date('D', strtotime($g->fecha))=='Mon'){
+
+						$lun="<br>L<br>U<br>N<br>E<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Tue'){
+
+						$mar="<br>M<br>A<br>R<br>T<br>E<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Wed'){
+
+						$mie="<br>M<br>I<br>E<br>R<br>C<br>O<br>L<br>E<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Thu'){
+
+						$jue="<br>J<br>U<br>E<br>V<br>E<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Fri'){
+
+						$vie="<br>V<br>I<br>E<br>R<br>N<br>E<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Sat'){
+
+						$sab="<br>S<br>A<br>B<br>A<br>D<br>O<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}else if(date('D', strtotime($g->fecha))=='Sun'){
+
+						$dom="<br>D<br>O<br>M<br>I<br>N<br>G<br>O<br>S|$g->fecha|".date('d-m', strtotime($g->fecha)).'--'.$g->entrada."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->salida."|".date('d-m', strtotime($g->fecha)).'--'.$g->inicio_extra."|
+						".date('d-m', strtotime($g->fecha)).'--'.$g->final_extra;
+
+					}
+				}
+				$lun = explode("|",$lun);
+				$mar = explode("|",$mar);
+				$mie = explode("|",$mie);
+				$jue = explode("|",$jue);
+				$vie = explode("|",$vie);
+				$sab = explode("|",$sab);
+				$dom = explode("|",$dom);
+
+				$horas = new HorariosModel();
+				$horas = $horas->getByEmpleado($id_e);
+				$hours='';
+				$ea='';$sa='';
+
+				foreach ($horas as $i) {
+
+					if($i->entrada != $ea && $i->salida != $sa){
+						if($i->dia != $i->dia_fin){
+							$hours.="$i->entrada a $i->salida $i->dia a $i->dia_fin ";
+						}else{
+							$hours.="$i->entrada a $i->salida $i->dia ";
+						}
+					}
+
+				}
+
+				$var = date('m', strtotime($_POST['semana']));
+				settype($var, 'int');
+				$dias1=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 1 days"));
+				$dias2=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 2 days"));
+				$dias3=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 3 days"));
+				$dias4=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 4 days"));
+				$dias5=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 5 days"));
+				$dias6=date("d",strtotime(date('d-m-Y', strtotime($_POST['semana']))."+ 6 days"));
+				$html ='
+				<br><br><br><br><br><br><br>
+				<table width="100%" ><br>
+					<tr >
+					<td align="left" style="width:25%;"> </td>
+					<td align="left" style="width:50%;">
+
+
+						<table width="100%" align="center" style="padding-top:10px; border: 1px solid #000;" ><br>
+							<tr>
+							<td align="left" style="width:50%;">
+								 '.$name.' <br>
+								 RFC  <br>
+								 HORARIO <br>
+								 CATEGORIA <br>
+								 '.$mes[$var].'
+							</td>
+							<td align="right" style="width:50%; ">
+							'.$rfc.' <br>
+							'.$hours.' <br>
+							'.$cat.' <br>
+							 '.date('Y', strtotime($_POST['semana'])).'
+							</td>
+
+							</tr>
+
+							<tr>
+							<td  style="width:50%;"><img src="public/img/logopdf.png" style="width:40px;" ></td>
+							<td  style="width:50%;"><img src="public/img/logo2.png" style="width:75px;" ></td>
+							</tr>
+							</table>
+
+					</td>
+
+					<td align="right" style="width:25%;"> </td>
+					</tr>
+
+				';
+
+
+				$html .='
+					<tr >
+					<td align="left" style="width:25%;"> </td>
+					<td align="left" style="width:50%;">
+
+
+						<table width="100%" align="center" style="border: 1px solid #000;" ><br>
+							<tr>
+							<td align="center" style="width:40%;">
+							SDT-TE
+							</td>
+
+							<td align="center" style="width:20%;">
+							</td>
+
+							<td align="center" style="width:40%;">
+							TIEMPO REGULAR
+							</td>
+
+							</tr>
+
+							';
+
+
+								$html.='
+								<tr style="border: 1px solid #000; padding-bottom:30px;">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+									 		<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$lun[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$lun[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$lun[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.date('d', strtotime($_POST['semana'])).'</font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$lun[2].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$lun[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+									 		<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$mar[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$mar[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$mar[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias1.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$mar[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$mar[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$mie[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$mie[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$mie[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias2.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$mie[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$mie[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+									 		<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$jue[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$jue[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$jue[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias3.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$jue[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$jue[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+									 		<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$vie[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$vie[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$vie[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias4.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$vie[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$vie[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$sab[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$sab[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$sab[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias5.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$sab[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$sab[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+								<tr style="border: 1px solid #000; ">
+
+								<td align="center" style="width:35%; padding:0px;">
+									<table>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$dom[4].' </td></tr>
+											<tr ><td style="border: 1px solid #000;"> '.$dom[5].' </td></tr>
+									</table>
+								</td>
+
+								<td align="center" style="width:30%; padding:0px;">
+									<table style="border: 1px solid #000;">
+
+											<tr ><td rowspan="3"><p style="font-size:10px;" >'.$dom[0].'</p> </td> <td > <font style="font-size:10px;"> 1ER TURNO </font> </td> <td></td> </tr>
+											<tr > <td > <font style="font-size:30px;"> '.$dias6.' </font> </td> <td></td> </tr>
+											<tr >   <td> <font style="font-size:10px;"> 2DO TURNO </font> </td> <td></td></tr>
+
+									</table>
+								</td>
+
+								<td align="center" style="width:35%; padding:0px;">
+								<table style="border: 1px solid #000;">
+								<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;">'.$dom[2].'</td></tr>
+								<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;">'.$dom[4].'</td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">S</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+										<tr ><td width="10%" style="border: 1px solid #000;">E</td> <td width="90%" style="border: 1px solid #000;"> </td></tr>
+								</table>
+								</td>
+
+								</tr>
+								';
+
+
+
+							$html.='</table>
+
+					</td>
+
+					<td align="right" style="width:25%;"> </td>
+					</tr>
+
+					</table>
+
+				';
 	}
+
+
     $pdf->writeHTML($html, true, false, true, false, '');
     $pdf->writeHTMLCell($w = 0, $h = 0, $x = '', $y = 165, $html_footer, $border = 0, $ln = 2, $fill = 0, $reseth = false, $align = 'C', $autopadding = false);
 
 	ob_end_clean();
-
-  $pdf->Output($titulo.'.pdf', 'I');
+	 $pdf->Output($titulo.'.pdf', 'I');

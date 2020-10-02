@@ -17,6 +17,11 @@ class EmpleadosRequest {
         <form id="form" action="<?= route($_POST['model'] . '/save'); ?>" method="POST" class="form-horizontal">
             <input type="hidden" name="id" value="<?= $_POST['id'] ?>">
             <div class="row form-group">
+              <div class="col-md-4 ">
+                  <label for="surname" class="control-label">Identificador</label>
+                  <input type="text" name="codigo" id="codigo" value="<?= $empleado->codigo; ?>" class="form-control" required autocomplete="off">
+              </div>
+
                 <div class="col-md-4 ">
                     <label for="surname" class="control-label">R.F.C.</label>
                     <input type="text" name="rfc" id="rfc" value="<?= $empleado->rfc; ?>" class="form-control" required autocomplete="off">
@@ -33,7 +38,7 @@ class EmpleadosRequest {
                            required autocomplete="off">
                 </div>
 
-                <div class="col-md-8">
+                <div class="col-md-4">
                     <label for="Apellidos" class="control-label">Categoria</label>
                     <select class="form-control" name="categoria" id="categoria">
                       <?php
@@ -95,6 +100,7 @@ class EmpleadosRequest {
         $empleado = $can->getAllEmpleados('NombreUser');
         foreach ($empleado as $c) { ?>
             <tr>
+              <td><?= $c->codigo; ?></td>
               <td><?= $c->rfc; ?></td>
               <td><?= $c->nombre; ?></td>
               <td><?= $c->apellidos ?></td>
@@ -139,7 +145,7 @@ class EmpleadosRequest {
             <?php
             foreach ($horarios as $c) { ?>
                 <tr>
-                  <td><?= $c->dia ?></td>
+                  <td><?= ($c->dia==$c->dia_fin)? $c->dia : $c->dia.' - '.$c->dia_fin; ?></td>
                   <td><?= date('h:i a', strtotime($c->entrada)); ?></td>
                   <td><?= date('h:i a', strtotime($c->salida)); ?></td>
                 </tr>
