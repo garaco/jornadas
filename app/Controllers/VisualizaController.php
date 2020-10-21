@@ -218,7 +218,7 @@ class VisualizaController extends TCPDF {
 					$ext_dt='';
 
 					$sum_d='';$sum_t='';$sum_f='';$sum_dom='';
-
+					$doble="TIME_TO_SEC('00:00')"; $triple="TIME_TO_SEC('00:00')";
 					if(isset($jornadas)){
 						foreach ($jornadas as $i) {
 
@@ -232,8 +232,10 @@ class VisualizaController extends TCPDF {
 
 								 if($i->horas_extras >= '02:00'){
 									 	$hrs_d = '02:00';
+										$doble.=" + TIME_TO_SEC('02:00')";
 								 }elseif($i->horas_extras < '02:00'){
 									 $hrs_d = $i->horas_extras;
+									 $doble.=" + TIME_TO_SEC('".$i->horas_extras."')";
 								 }
 							 }else {
 								 $hrs_d = '';
@@ -244,6 +246,7 @@ class VisualizaController extends TCPDF {
 								 if($i->horas_extras > '02:00'){
 									 $horas =  $jornada->resatar($i->horas_extras);
 									 $hrs_t = $horas->horas_extras;
+									 $triple.=" + TIME_TO_SEC('".$horas->horas_extras."')";
 								 }
 
 							 }else {
@@ -279,25 +282,17 @@ class VisualizaController extends TCPDF {
 
 								if($i->tipo=='Horas Extras')
 								{
-									$sum_d = $jornada->getSumHours(date('W', strtotime($_POST['semana'])),$i->id_empleado,'Horas Extras');
-									if($sum_d->horas_extras < '02:00'){
-											$sum_t = '';
-											$sum_d = $sum_d->horas_extras;
-									}else if($sum_d->horas_extras >= '02:00'){
-										$sum_t = '';
-										$sum_d = '02:00';
-									}else{
-										$sum_t = strtotime ( '-2 hour' , strtotime ($sum_d->horas_extras) );
-										$sum_d='';
-									}
+										$sum_d = $jornada->getSumHoursh($doble);
+										$sum_d = $sum_d->horas_extras;
+								}
 
+								if($i->tipo=='Horas Extras')
+								{
+										$sum_t = $jornada->getSumHoursh($triple);
+										$sum_t = $sum_t->horas_extras;
 
 								}
-								// if($i->tipo=='Horas Extras' )
-								// {
-								// 	$sum_t = $jornada->getSumHours(date('W', strtotime($_POST['semana'])),$i->id_empleado,'Horas Extras');
-								// 	$sum_t = $sum_t->horas_extras;
-								// }
+
 								if($i->tipo=='Prima Dominical')
 								{
 									$sum_f = $jornada->getSumHours(date('W', strtotime($_POST['semana'])),$i->id_empleado,'Prima Dominical');

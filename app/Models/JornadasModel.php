@@ -98,7 +98,7 @@ class JornadasModel extends Model {
 
 	public function getSumHours($semana,$id,$tipo){
 		$sql="select  TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(d.horas_extras))), '%H:%i')  as horas_extras
-		from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and id_empleado = {$id} and FIND_IN_SET(tipo, '{$tipo}')";
+		from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and FIND_IN_SET(tipo, '{$tipo}')";
 		$query = Executor::doit($sql);
 
 		return self::one($query[0]);
@@ -118,6 +118,12 @@ class JornadasModel extends Model {
 		$query = Executor::doit($sql);
 
 			 return self::one($query[0]);
+	}
+
+	public function getSumHoursh($body){
+		$sql="select  TIME_FORMAT(SEC_TO_TIME(SUM({$body})), '%H:%i')  as horas_extras";
+		$query = Executor::doit($sql);
+		return self::one($query[0]);
 	}
 
 }
