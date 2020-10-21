@@ -112,4 +112,12 @@ class JornadasModel extends Model {
 			 return self::many($query[0]);
 	}
 
+	public function resatar($hora){
+		$sql="select DATE_FORMAT(TIMEDIFF('{$hora}','02:00'), '%H:%i') as horas_extras";
+
+		$query = Executor::doit($sql);
+
+			 return self::one($query[0]);
+	}
+
 }

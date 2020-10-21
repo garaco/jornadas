@@ -46,19 +46,7 @@ class HorariosModel extends Model {
 	}
 
 	public function getByEmpleado($id){
-		$sql = "(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Lunes')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Martes')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Miercoles')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Jueves')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Viernes')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Sabados')
-				UNION
-				(select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = 'Domingos')";
+		$sql = "select j.* from jornadas_empleados as j where id_empleado = {$id}";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);
