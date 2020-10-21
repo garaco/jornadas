@@ -104,11 +104,8 @@ class JornadasModel extends Model {
 		return self::one($query[0]);
 	}
 
-	public function getcalculo($salida,$dia,$id_empleado){
-		$sql=" select if ('{$salida}'>salida,DATE_FORMAT(TIMEDIFF('$salida',salida), '%H:%i') ,0) as horas_extras,
-			 if ('{$salida}'>salida, DATE_FORMAT(salida, '%H:%i'), 0) as inicio_extra,
-			 if ('{$salida}'>salida,'{$salida}' ,0) as final_extra
-			 from jornadas_empleados where dia = '{$dia}' and id_empleado = {$id_empleado}";
+	public function getcalculo($inicio,$salida,$id_empleado){
+		$sql="select DATE_FORMAT(TIMEDIFF('$salida','$inicio'), '%H:%i') as horas_extras";
 
 			 $query = Executor::doit($sql);
 

@@ -47,17 +47,29 @@ class JornadasController{
       $horarios = $horario->getByEmpleado($_POST['id']);
 			$option = '';
 			foreach ($horarios as $h) {
-				$option.='<option value="'.$h->dia.'"> '.$h->dia.' de '.date('h:i a', strtotime($h->entrada)).' a '.date('h:i a', strtotime($h->salida)).'</option>';
+				$option.='<option value="'.$h->dia.'"> '.$h->dia.'</option>';
 			}
 			 echo $option;
 		}
 
+		public function horas(){
+			$horario = new HorariosModel();
+			$horarios = $horario->getByEmpleadoHoras($_POST['id'],$_POST['dia']);
+			$entrada = '';
+			$salida = '';
+			foreach ($horarios as $h) {
+				$entrada=$h->entrada;
+				$salida=$h->salida;
+			}
+			 echo "$entrada|$salida";
+		}
+
 		public function extras(){
 			$jor = new JornadasModel();
-			$jornadas = $jor->getcalculo($_POST['salida'],$_POST['dia'],$_POST['id']);
+			$jornadas = $jor->getcalculo($_POST['inicio'],$_POST['salida'],$_POST['id']);
 			$option = '';
 			foreach ($jornadas as $j) {
-				$option.="$j->horas_extras|$j->inicio_extra|$j->final_extra";
+				$option="$j->horas_extras";
 			}
 			 echo $option;
 		}

@@ -18,7 +18,7 @@
         {% for d in horario %}
             <tr>
                 <td>{{ d.empleado }}</td>
-                <td> {% if d.dia == d.dia_fin %} {{ d.dia }} {% else %} {{ d.dia }} - {{ d.dia_fin }} {% endif %} </td>
+                <td> {{ d.dia }} </td>
                 <td>{{ d.entrada |date('h:i a') }}</td>
                 <td>{{ d.salida |date('h:i a') }}</td>
                 <td class="text-center">

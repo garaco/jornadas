@@ -21,7 +21,7 @@ class HorariosController{
 					$save->dia = $_POST['dia'];
           $save->entrada = $_POST['entrada'];
           $save->salida = $_POST['salida'];
-					$save->dia_fin = $_POST['dia_fin'];
+					$save->dia_fin = $_POST['dia'];
 
           if($_POST['id'] == 0){
           	$save->add();

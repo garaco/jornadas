@@ -64,5 +64,11 @@ class HorariosModel extends Model {
 		return self::many($query[0]);
 	}
 
+	public function getByEmpleadoHoras($id,$dia){
+		$sql = "select j.* from jornadas_empleados as j where id_empleado = {$id} and j.dia = '{$dia}'";
+		$query = Executor::doit($sql);
+
+		return self::many($query[0]);
+	}
 
 }

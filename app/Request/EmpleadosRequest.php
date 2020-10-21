@@ -145,7 +145,7 @@ class EmpleadosRequest {
             <?php
             foreach ($horarios as $c) { ?>
                 <tr>
-                  <td><?= ($c->dia==$c->dia_fin)? $c->dia : $c->dia.' - '.$c->dia_fin; ?></td>
+                  <td><?= $c->dia; ?></td>
                   <td><?= date('h:i a', strtotime($c->entrada)); ?></td>
                   <td><?= date('h:i a', strtotime($c->salida)); ?></td>
                 </tr>

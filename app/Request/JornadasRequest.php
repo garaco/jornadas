@@ -18,7 +18,7 @@ class JornadasRequest {
 
               <div class="col-md-6">
                   <label for="Apellidos" class="control-label">Empleado</label>
-                  <select class="form-control" name="empleado" id="empleado">
+                  <select class="form-control" name="empleado" id="empleado" onchange="dias();">
                     <option value="0">Seleccione un empleado</option>
                     <?php $emp = new EmpleadosModel();
                      $emp = $emp->getAll('id');
@@ -30,15 +30,8 @@ class JornadasRequest {
 
                 <div class="col-md-6 " id="select-dia">
                     <label for="name" class="control-label">Dias de la Semana/Horas</label>
-                    <select class="form-control" name="dia" id="dia">
-                      <option value="Lunes" <?= ($joradas->dia == 'Lunes') ? ' selected' : '' ?>>Lunes</option>
-                      <option value="Martes" <?= ($joradas->dia == 'Martes') ? ' selected' : '' ?>>Martes</option>
-                      <option value="Miercoles" <?= ($joradas->dia == 'Miercoles') ? ' selected' : '' ?>>Miercoles</option>
-                      <option value="Jueves" <?= ($joradas->dia == 'Jueves') ? ' selected' : '' ?>>Jueves</option>
-                      <option value="Viernes" <?= ($joradas->dia == 'Viernes') ? ' selected' : '' ?>>Viernes</option>
-                      <option value="Sabados" <?= ($joradas->dia == 'Sabados') ? ' selected' : '' ?>>Sabados</option>
-                      <option value="Domingos" <?= ($joradas->dia == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
-                      <option value="Festivos" <?= ($joradas->dia == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
+                    <select class="form-control" name="dia" id="dia" onchange="horarios();">
+                      <option value="<?= $joradas->dia ?>" > <?= $joradas->dia ?></option>
                     </select>
                 </div>
 
@@ -73,12 +66,18 @@ class JornadasRequest {
                   <input type="time" name="inicio_extra" id="inicio_extra" value="<?= $joradas->inicio_extra; ?>" class="form-control" required autocomplete="off">
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-4">
                   <label for="surname" class="control-label">Fin de Horas Extras</label>
-                  <input type="time" name="final_extra" id="final_extra" value="<?= $joradas->final_extra; ?>" class="form-control" required autocomplete="off">
+                  <div class="input-group mb-2">
+                    <input type="time" name="final_extra" id="final_extra" value="<?= $joradas->final_extra; ?>" class="form-control" required autocomplete="off">
+                    <div class="input-group-prepend">
+                      <button class="btn btn-primary" type="button" name="button" onclick="calculo();"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+
               </div>
 
-              <div class="col-md-3">
+              <div class="col-md-2">
                   <label for="surname" class="control-label">Horas</label>
                   <input type="text" name="horas" id="horas" value="<?= $joradas->horas_extras; ?>" class="form-control" required autocomplete="off">
               </div>
@@ -86,8 +85,7 @@ class JornadasRequest {
               <div class="col-md-3">
                   <label for="surname" class="control-label">Tipo Horas</label>
                   <select class="form-control" name="tipo" id="tipo">
-                    <option value="Horas Dobles" <?= ($joradas->tipo == 'Horas Dobles') ? ' selected' : '' ?>>Horas Dobles</option>
-                    <option value="Horas Triples" <?= ($joradas->tipo == 'Horas Triples') ? ' selected' : '' ?>>Horas Triples</option>
+                    <option value="Horas Extras" <?= ($joradas->tipo == 'Horas Extras') ? ' selected' : '' ?>>Horas Extras</option>
                     <option value="Domingos" <?= ($joradas->tipo == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
                     <option value="Festivos" <?= ($joradas->tipo == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
                     <option value="Prima Dominical" <?= ($joradas->tipo == 'Prima Dominical') ? ' selected' : '' ?> >Prima Dominical</option>
@@ -102,7 +100,7 @@ class JornadasRequest {
                     <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-remove"></i>
                         Cancelar
                     </button>
-                    <button type="submit" class="btn btn-success" id="btn-save" <?= ($_POST['id'] != 0)?'':'disabled="true"'; ?> ><i class="fa fa-save"></i> Guardar</button>
+                    <button type="submit" class="btn btn-success" id="btn-save" ><i class="fa fa-save"></i> Guardar</button>
                 </div>
             </div>
         </form>

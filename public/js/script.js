@@ -139,10 +139,31 @@ function dias(){
   });
 }
 
+function horarios(){
+  let id = $("#empleado").val();
+  let dia = $("#dia").val();
+  let dato;
+
+  $.ajax({
+      url: 'jornadas_horas',
+      type: 'POST',
+      data: {
+          id: id,
+          dia:dia
+      },
+      success: function (data) {
+        dato = data.split("|");
+        $("#enrada").val(dato[0]);
+        $("#salida").val(dato[1]);
+        $("#inicio_extra").val(dato[1]);
+      }
+  });
+}
+
 function calculo(){
   let id = $("#empleado").val();
-  let salida = $("#salida").val();
-  let dia = $("#dia").val();
+  let inicio = $("#inicio_extra").val();
+  let salida = $("#final_extra").val();
   var datos;
 
   $.ajax({
@@ -151,16 +172,10 @@ function calculo(){
       data: {
           id: id,
           salida:salida,
-          dia:dia
+          inicio:inicio
       },
       success: function (data) {
-        $("#label-horas").html('<h4 style="text-align:center;">Horas Extras</h4>');
-        $("#panel-horas").removeClass("visible");
-        datos = data.split('|');
-        $("#horas").val(datos[0]);
-        $("#inicio_extra").val(datos[1]);
-        $("#final_extra").val(datos[2]);
-        $("#btn-save").attr("disabled",false);
+        $("#horas").val(data);
         $
       }
   });

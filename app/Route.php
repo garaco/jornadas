@@ -38,6 +38,7 @@ class Route{
           ['url' => 'jornadas/save',				'ctrl' => 'JornadasController@save',	    					'type' => 'admin'],
            ['url' => 'jornadas/del',				    'ctrl' => 'JornadasController@del',  						'type' => 'admin'],
            ['url' => 'jornadas_dias',					    'ctrl' => 'JornadasController@dias',	    				'type' => 'admin'],
+           ['url' => 'jornadas_horas',					    'ctrl' => 'JornadasController@horas',	    				'type' => 'admin'],
            ['url' => 'jornadas_horas_extras',					    'ctrl' => 'JornadasController@extras',	    				'type' => 'admin'],
 
            ['url' => 'logout', 					        'ctrl' => 'AuthController@logout', 					    	'type' => 'admin'],
