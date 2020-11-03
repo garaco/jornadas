@@ -19,6 +19,7 @@ class JornadasModel extends Model {
 	public $semana;
 	public $categoria;
 	public $rfc;
+	public $sexo;
 
 	function __construct(){
 		self::$tablename= 'dias_laborados';
@@ -36,6 +37,7 @@ class JornadasModel extends Model {
 		$this->semana = '';
 		$this->categoria = '';
 		$this->rfc = '';
+		$this->sexo = '';
 
 	}
 
@@ -78,6 +80,7 @@ class JornadasModel extends Model {
 	public function getByExtras($semana=''){
 		$sql="select d.*,WEEK(d.fecha,1) as semana,
 			(select rfc from empleados where id = d.id_empleado ) as rfc,
+			(select sexo from empleados where id = d.id_empleado ) as sexo,
 			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
 			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} order by id_empleado";
 		$query = Executor::doit($sql);

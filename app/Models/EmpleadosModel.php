@@ -12,6 +12,7 @@ class EmpleadosModel extends Model {
 	public $apellidos;
 	public $id_categoria;
 	public $categoria;
+	public $sexo;
 	public $activo;
 
 	function __construct(){
@@ -23,17 +24,18 @@ class EmpleadosModel extends Model {
 		$this->apellidos='';
 		$this->id_categoria = 0;
 		$this->categoria = '';
+		$this->sexo = '';
 		$this->activo = '';
 	}
 
 	public function add(){
-		$query = "INSERT INTO ".self::$tablename." (id, codigo, rfc, nombre, apellidos, id_categoria, Activo) VALUES (0, '{$this->codigo}', '{$this->rfc}', '{$this->nombre}', '{$this->apellidos}', {$this->id_categoria}, '{$this->activo}')";
+		$query = "INSERT INTO ".self::$tablename." (id, codigo, rfc, nombre, apellidos, id_categoria, sexo, activo) VALUES (0, '{$this->codigo}', '{$this->rfc}', '{$this->nombre}', '{$this->apellidos}', {$this->id_categoria}, '{$this->sexo}', '{$this->activo}')";
 		$sql = Executor::doit($query);
 		return $sql[1];
 	}
 
 	public function update(){
-		$sql = "UPDATE ".self::$tablename." SET codigo = '{$this->codigo}', rfc = '{$this->rfc}', nombre = '{$this->nombre}', apellidos = '{$this->apellidos}', id_categoria = {$this->id_categoria}, activo = '{$this->activo}' WHERE id = {$this->id};";
+		$sql = "UPDATE ".self::$tablename." SET codigo = '{$this->codigo}', rfc = '{$this->rfc}', nombre = '{$this->nombre}', apellidos = '{$this->apellidos}', id_categoria = {$this->id_categoria}, sexo = '{$this->sexo}',  activo = '{$this->activo}' WHERE id = {$this->id};";
 		Executor::doit($sql);
 	}
 

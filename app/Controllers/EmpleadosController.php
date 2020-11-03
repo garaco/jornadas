@@ -22,7 +22,8 @@ class EmpleadosController{
           $save->nombre = $_POST['name'];
           $save->apellidos = $_POST['surname'];
 					$save->id_categoria = $_POST['categoria'];
-          $save->activo = $_POST['active'];
+          $save->sexo = $_POST['sex'];
+					$save->activo = $_POST['active'];
 
           if($_POST['id'] == 0){
           	$save->add();

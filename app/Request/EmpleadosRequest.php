@@ -50,7 +50,15 @@ class EmpleadosRequest {
                     </select>
                 </div>
 
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <label for="Apellidos" class="control-label">Sexo</label>
+                    <select class="form-control" name="sex" id="sex">
+                      <option value="M"<?= ($empleado->sexo == 'M') ? ' selected' : '' ?>>M</option>
+                      <option value="F"<?= ($empleado->sexo == 'F') ? ' selected' : '' ?>>F</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
                     <label for="Apellidos" class="control-label">Activo</label>
                     <select class="form-control" name="active" id="active">
                       <option value="Si"<?= ($empleado->activo == 'Si') ? ' selected' : '' ?>>Si</option>

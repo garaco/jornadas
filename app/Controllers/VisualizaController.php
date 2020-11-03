@@ -178,7 +178,7 @@ class VisualizaController extends TCPDF {
 				</td>
 				<td align="right" style="width:40%;">
 				<p style="padding-top:0px;padding-bottom:0px;" >
-				<strong>  Oficio EBTT-DA-142-2020 </strong> <br>
+				<strong>  '.$_POST['coment'].' </strong> <br>
 				 Asunto: Se reporta tiempo extra Semana '.date('W', strtotime($_POST['semana'])).'/'.date('Y', strtotime($_POST['semana'])).' </p>
 				</td>
 				</tr>
@@ -228,25 +228,64 @@ class VisualizaController extends TCPDF {
 							}
 
 							  // $hrs_t=($i->tipo=='Horas Extras') ? $i->horas_extras : '';
+								// if($i->sexo=='M'){
+								// 	if($i->tipo=='Horas Extras'){
+								//
+								// 		if($i->horas_extras >= '03:00'){
+								// 			 $hrs_d = '02:00';
+								// 			 $doble.=" + TIME_TO_SEC('02:00')";
+								// 		}elseif($i->horas_extras < '03:00'){
+								// 			$hrs_d = $i->horas_extras;
+								// 			$doble.=" + TIME_TO_SEC('".$i->horas_extras."')";
+								// 		}
+								// 	}else {
+								// 		$hrs_d = '';
+								// 	}
+								//
+								// 	if($i->tipo=='Horas Extras'){
+								//
+								// 		if($i->horas_extras > '03:00'){
+								// 			$horas =  $jornada->resatar($i->horas_extras);
+								// 			$hrs_t = $horas->horas_extras;
+								// 			$triple.=" + TIME_TO_SEC('".$horas->horas_extras."')";
+								// 		}
+								//
+								// 	}else {
+								// 		$hrs_t = '';
+								// 	}
+								// }else if($i->sexo=='F'){
+								//
+								// 		// $horas =  $jornada->resatar($i->horas_extras);
+								// 		$hrs_t = $i->horas_extras;
+								// 		$triple.=" + TIME_TO_SEC('".$i->horas_extras."')";
+								// 		$hrs_d = '';
+								// }
 							 if($i->tipo=='Horas Extras'){
+								 if($i->sexo=='M'){
+									 if($i->horas_extras >= '02:00'){
+										 $hrs_d = '02:00';
+										 $doble.=" + TIME_TO_SEC('02:00')";
+									}elseif($i->horas_extras < '02:00'){
+										$hrs_d = $i->horas_extras;
+										$doble.=" + TIME_TO_SEC('".$i->horas_extras."')";
+									}
+								}else{
+									$hrs_t = $i->horas_extras;
+									 $triple.=" + TIME_TO_SEC('".$i->horas_extras."')";
+									 $hrs_d = '';
+								}
 
-								 if($i->horas_extras >= '02:00'){
-									 	$hrs_d = '02:00';
-										$doble.=" + TIME_TO_SEC('02:00')";
-								 }elseif($i->horas_extras < '02:00'){
-									 $hrs_d = $i->horas_extras;
-									 $doble.=" + TIME_TO_SEC('".$i->horas_extras."')";
-								 }
 							 }else {
 								 $hrs_d = '';
 							 }
 
 							 if($i->tipo=='Horas Extras'){
-
-								 if($i->horas_extras > '02:00'){
-									 $horas =  $jornada->resatar($i->horas_extras);
-									 $hrs_t = $horas->horas_extras;
-									 $triple.=" + TIME_TO_SEC('".$horas->horas_extras."')";
+								 if($i->sexo=='M'){
+									 if($i->horas_extras > '02:00'){
+										$horas =  $jornada->resatar($i->horas_extras);
+										$hrs_t = $horas->horas_extras;
+										$triple.=" + TIME_TO_SEC('".$horas->horas_extras."')";
+									}
 								 }
 
 							 }else {
@@ -341,7 +380,7 @@ class VisualizaController extends TCPDF {
 					<tr>
 					<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
 					Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
-					E-mail: resertux@unam.mx - www.ib.unam.mx <br>
+					E-mail: reservtux@ib.unam.mx - www.ib.unam.mx <br>
 					</td>
 					</tr>
 					</table>
