@@ -18,7 +18,7 @@ class JornadasRequest {
 
               <div class="col-md-6">
                   <label for="Apellidos" class="control-label">Empleado</label>
-                  <select class="form-control" name="empleado" id="empleado" onchange="dias();">
+                  <select class="form-control" name="empleado" id="empleado">
                     <option value="0">Seleccione un empleado</option>
                     <?php $emp = new EmpleadosModel();
                      $emp = $emp->getAll('id');
@@ -31,7 +31,14 @@ class JornadasRequest {
                 <div class="col-md-6 " id="select-dia">
                     <label for="name" class="control-label">Dias de la Semana/Horas</label>
                     <select class="form-control" name="dia" id="dia" onchange="horarios();">
-                      <option value="<?= $joradas->dia ?>" > <?= $joradas->dia ?></option>
+                      <option value="Lunes" <?= ($joradas->dia == 'Lunes') ? ' selected' : '' ?>>Lunes</option>
+                      <option value="Martes" <?= ($joradas->dia == 'Martes') ? ' selected' : '' ?>>Martes</option>
+                      <option value="Miercoles" <?= ($joradas->dia == 'Miercoles') ? ' selected' : '' ?>>Miercoles</option>
+                      <option value="Jueves" <?= ($joradas->dia == 'Jueves') ? ' selected' : '' ?>>Jueves</option>
+                      <option value="Viernes" <?= ($joradas->dia == 'Viernes') ? ' selected' : '' ?>>Viernes</option>
+                      <option value="Sabados" <?= ($joradas->dia == 'Sabados') ? ' selected' : '' ?>>Sabados</option>
+                      <option value="Domingos" <?= ($joradas->dia == 'Domingos') ? ' selected' : '' ?>>Domingos</option>
+                      <option value="Festivos" <?= ($joradas->dia == 'Festivos') ? ' selected' : '' ?>>Festivos</option>
                     </select>
                 </div>
 
