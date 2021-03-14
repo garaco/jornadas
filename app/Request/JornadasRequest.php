@@ -53,12 +53,12 @@ class JornadasRequest {
 
               <div class="col-md-4">
                   <label for="surname" class="control-label">Entrada</label>
-                  <input type="time" name="entrada" id="enrada" value="<?= $joradas->entrada; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="entrada" id="enrada" value="<?= $joradas->entrada; ?>" class="form-control" autocomplete="off">
               </div>
 
               <div class="col-md-4">
                   <label for="surname" class="control-label">Salida</label>
-                  <input type="time" name="salida" id="salida" value="<?= $joradas->salida; ?>" class="form-control" required autocomplete="off">
+                  <input type="time" name="salida" id="salida" value="<?= $joradas->salida; ?>" class="form-control" autocomplete="off">
               </div>
 
             </div>

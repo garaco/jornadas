@@ -9,7 +9,9 @@ class ReportesController{
 
 		$empleado = new EmpleadosModel();
 		$empleados = $empleado->getAllEmpleados('id');
+		$semana = array();
 
-			 return view('Catalogos/reportes.twig', ['empleados' => $empleados, 'modelo' => 'reporte','type'=>$_SESSION['type'],'user'=>$_SESSION['Username']]);
+		 return view('Catalogos/reportes.twig', ['empleados' => $empleados, 'year'=>date('Y'),
+		 'modelo' => 'reporte','type'=>$_SESSION['type'],'user'=>$_SESSION['Username']]);
     }
 }

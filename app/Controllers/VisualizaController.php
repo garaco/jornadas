@@ -151,10 +151,10 @@ class VisualizaController extends TCPDF {
 
 	}else if($_POST['type']=='horas_extras'){
 		$titulo="horas extras";
-
-		$firstday = date('d', strtotime($_POST['semana']));
+		$firstday = date('d-m-Y', strtotime($_POST['semana']));
+		$firstday =	date("d",strtotime($firstday."- 1 days"));
 		$fecha = date('Y-m-j', strtotime($_POST['semana']));
-		$nuevafecha = strtotime ( '+6 day' , strtotime ( $fecha ) ) ;
+		$nuevafecha = strtotime ( '+5 day' , strtotime ( $fecha ) ) ;
 		$lastday = date ('d', $nuevafecha );
 
 
@@ -179,16 +179,16 @@ class VisualizaController extends TCPDF {
 				<td align="right" style="width:40%;">
 				<p style="padding-top:0px;padding-bottom:0px;" >
 				<strong>  '.$_POST['coment'].' </strong> <br>
-				 Asunto: Se reporta tiempo extra Semana '.date('W', strtotime($_POST['semana'])).'/'.date('Y', strtotime($_POST['semana'])).' </p>
+				 Asunto: Se reporta tiempo extra Semana '.(date('W', strtotime($_POST['semana']))+1).'/'.date('Y').' </p>
 				</td>
 				</tr>
 				<tr>
-				<td align="right" style="width:50%;"> Semana: <font style="color:red; font-size:40px;"> '.date('W', strtotime($_POST['semana'])).'</font> </td>
+				<td align="right" style="width:50%;"> Semana: <font style="color:red; font-size:40px;"> '.(date('W', strtotime($_POST['semana']))+1).'</font> </td>
 				<td style="width:50%;"> </td>
 				</tr>
 				<tr>
 				<td style="width:50%;"> </td>
-				<td align="left" style="width:50%;"> DEL '.$firstday.' AL '.$lastday.' DE SEPTIEMBRE DEL 2020 </td>
+				<td align="left" style="width:50%;"> DEL '.$firstday.' AL '.$lastday.' DE '.date('m', strtotime($_POST['semana'])).' DEL '.date('Y').' </td>
 				</tr>
 				</table>';
 
@@ -226,40 +226,6 @@ class VisualizaController extends TCPDF {
 								$em = $i->empleado;
 								$count++;
 							}
-
-							  // $hrs_t=($i->tipo=='Horas Extras') ? $i->horas_extras : '';
-								// if($i->sexo=='M'){
-								// 	if($i->tipo=='Horas Extras'){
-								//
-								// 		if($i->horas_extras >= '03:00'){
-								// 			 $hrs_d = '02:00';
-								// 			 $doble.=" + TIME_TO_SEC('02:00')";
-								// 		}elseif($i->horas_extras < '03:00'){
-								// 			$hrs_d = $i->horas_extras;
-								// 			$doble.=" + TIME_TO_SEC('".$i->horas_extras."')";
-								// 		}
-								// 	}else {
-								// 		$hrs_d = '';
-								// 	}
-								//
-								// 	if($i->tipo=='Horas Extras'){
-								//
-								// 		if($i->horas_extras > '03:00'){
-								// 			$horas =  $jornada->resatar($i->horas_extras);
-								// 			$hrs_t = $horas->horas_extras;
-								// 			$triple.=" + TIME_TO_SEC('".$horas->horas_extras."')";
-								// 		}
-								//
-								// 	}else {
-								// 		$hrs_t = '';
-								// 	}
-								// }else if($i->sexo=='F'){
-								//
-								// 		// $horas =  $jornada->resatar($i->horas_extras);
-								// 		$hrs_t = $i->horas_extras;
-								// 		$triple.=" + TIME_TO_SEC('".$i->horas_extras."')";
-								// 		$hrs_d = '';
-								// }
 							 if($i->tipo=='Horas Extras'){
 								 if($i->sexo=='M'){
 									 if($i->horas_extras >= '02:00'){

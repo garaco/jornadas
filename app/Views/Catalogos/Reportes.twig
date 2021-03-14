@@ -30,11 +30,20 @@
                   <label for="">Semana:</label>
                 </div>
                 <div class="col-sm-4">
-                  <input type="week" name="semana" class="form-control" value="" required>
+                  <!-- <input type="week" name="semana" list="semana" class="form-control" value="" required> -->
+                  <select class="form-control" name="semana">
+
+                    {% for i in 0..53 %}
+                        <option value="{{year}}-W{% if i<10 %}0{% endif %}{{ i }}">Semana {{ i+1 }}</option>
+                    {% endfor %}
+
+                  </select>
                 </div>
 
+
+
                 <div class="col-sm-1">
-                  <label for="">Comentario:</label>
+                  <label for="">Numero Oficio:</label>
                 </div>
 
                 <div class="col-sm-4">
