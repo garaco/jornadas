@@ -150,6 +150,7 @@ class VisualizaController extends TCPDF {
 
 
 	}else if($_POST['type']=='horas_extras'){
+		$mes= array('','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Septiembre','Agosto','Octubre','Noviembre','Diciembre');
 		$titulo="horas extras";
 		$firstday = date('d-m-Y', strtotime($_POST['semana']));
 		$firstday =	date("d",strtotime($firstday."- 1 days"));
@@ -188,7 +189,7 @@ class VisualizaController extends TCPDF {
 				</tr>
 				<tr>
 				<td style="width:50%;"> </td>
-				<td align="left" style="width:50%;"> DEL '.$firstday.' AL '.$lastday.' DE '.date('m', strtotime($_POST['semana'])).' DEL '.date('Y').' </td>
+				<td align="left" style="width:50%;"> DEL '.$firstday.' AL '.$lastday.' DE '. $mes[ (int)date('m', strtotime($_POST['semana']))].' DEL '.date('Y').' </td>
 				</tr>
 				</table>';
 
