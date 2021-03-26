@@ -30,6 +30,25 @@ class VisualizaController extends TCPDF {
 
 	}
 
+	public function Footer() {
+        // Position at 15 mm from bottom
+        $this->SetY(-15);
+        // Set font
+        $this->SetFont('helvetica', '', 8);
+        // Custom footer HTML
+        $this->html = '
+		<table align="center" style="width:100%;">
+		<tr>
+		<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
+		Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
+		E-mail: reservtux@ib.unam.mx - www.ib.unam.mx <br>
+		</td>
+		</tr>
+		</table>';
+        $this->writeHTML($this->html, true, false, true, false, '');
+
+	}
+
 }
 
 		if($_POST['type']=='horarios'){
@@ -65,6 +84,8 @@ class VisualizaController extends TCPDF {
   $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
   // remove default
 
+  $pdf->setPrintHeader(true); 
+  $pdf->setPrintFooter(true);
   // set some language-dependent strings (optional)
   if (@file_exists(dirname(__FILE__).'/lang/spa.php')) {
   	require_once(dirname(__FILE__).'/lang/spa.php');
@@ -339,17 +360,7 @@ class VisualizaController extends TCPDF {
 					<td width="20%" style="border: 1px solid #000;" >TOTAL DE HORAS PRIMA DOMINICAL</td>
 					<td width="5%" style="border: 1px solid #000;" >'.$sum_f.'</td>
 					</tr>
-					</table>
-
-					<table align="center" style="padding-top:70px; width:100%;">
-					<tr>
-					<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
-					Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
-					E-mail: reservtux@ib.unam.mx - www.ib.unam.mx <br>
-					</td>
-					</tr>
-					</table>
-					';
+					</table>';
 
 
 	}else if($_POST['type']=='horas_extras_empleado'){
