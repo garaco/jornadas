@@ -36,7 +36,7 @@ class VisualizaController extends TCPDF {
         // Set font
         $this->SetFont('helvetica', '', 8);
         // Custom footer HTML
-        $this->html = '
+        $html = '
 		<table align="center" style="width:100%;">
 		<tr>
 		<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
@@ -45,19 +45,46 @@ class VisualizaController extends TCPDF {
 		</td>
 		</tr>
 		</table>';
-        $this->writeHTML($this->html, true, false, true, false, '');
+        $this->writeHTML($html, true, false, true, false, '');
+
+	}
+
+}
+
+class headerpdf extends TCPDF {
+
+	public function Header() {
+    $html='
+			<table width="100%">
+			<tr>
+				<td>
+				 <p style="color:white" >.<p>
+				</td>
+			</tr>
+			<tr>
+			<td width="100%">
+			<p style="color:white" >.<p>
+			</td>
+		</tr>
+			</table>
+		';
+
+
+		$this->SetFont('helvetica', 'B', 10);
+
+		$this->writeHTMLCell($w = 0, $h = 0, $x = '', $y = 0, $html, $border = 0, $ln = 1, $fill = 0, $reseth = true, $align = 'C', $autopadding = true);
 
 	}
 
 }
 
 		if($_POST['type']=='horarios'){
-			$pdf = new VisualizaController('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+			$pdf = new headerpdf('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		}elseif($_POST['type']=='horas_extras'){
 				$pdf = new VisualizaController('L', PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		}else{
 			error_reporting(0);
-			$pdf = new VisualizaController(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+			$pdf = new headerpdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 		}
 
   // set document information
@@ -84,8 +111,7 @@ class VisualizaController extends TCPDF {
   $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
   // remove default
 
-  $pdf->setPrintHeader(true); 
-  $pdf->setPrintFooter(true);
+  
   // set some language-dependent strings (optional)
   if (@file_exists(dirname(__FILE__).'/lang/spa.php')) {
   	require_once(dirname(__FILE__).'/lang/spa.php');
