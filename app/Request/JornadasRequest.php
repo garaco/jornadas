@@ -143,6 +143,9 @@ class JornadasRequest {
                 </div>
             </div>
         </form>
+        <script type="text/javascript">
+            $('.clockpicker').clockpicker();
+        </script>
         <?php
     }
 
@@ -191,7 +194,3 @@ class JornadasRequest {
         }
     }
 }
-?>
-<script type="text/javascript">
-    $('.clockpicker').clockpicker();
-</script>

@@ -78,17 +78,23 @@ class JornadasModel extends Model {
 	}
 
 	public function getByExtras($semana=''){
-		$sql="(select d.*,WEEK(d.fecha,1) as semana,
-			(select rfc from empleados where id = d.id_empleado ) as rfc,
-			(select sexo from empleados where id = d.id_empleado ) as sexo,
-			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
-			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and dia <> 'Domingos' order by id_empleado)
-			union
-		(select d.*,WEEK(d.fecha,1) as semana,
-					(select rfc from empleados where id = d.id_empleado ) as rfc,
-					(select sexo from empleados where id = d.id_empleado ) as sexo,
-					(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
-					from dias_laborados as d  where WEEK(d.fecha,0) = ({$semana}-1) and dia = 'Domingos' order by id_empleado) 	";
+		// $sqlAlt="(select d.*,WEEK(d.fecha,1) as semana,
+		// 	(select rfc from empleados where id = d.id_empleado ) as rfc,
+		// 	(select sexo from empleados where id = d.id_empleado ) as sexo,
+		// 	(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+		// 	from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and dia <> 'Domingos' order by id_empleado)
+		// 	union
+		// (select d.*,WEEK(d.fecha,1) as semana,
+		// 			(select rfc from empleados where id = d.id_empleado ) as rfc,
+		// 			(select sexo from empleados where id = d.id_empleado ) as sexo,
+		// 			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+		// 			from dias_laborados as d  where WEEK(d.fecha,0) = ({$semana}) and dia = 'Domingos' order by id_empleado) 	";
+
+		$sql="select d.*,WEEK(d.fecha,1) as semana,
+		(select rfc from empleados where id = d.id_empleado ) as rfc,
+		(select sexo from empleados where id = d.id_empleado ) as sexo,
+		(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
+		from dias_laborados as d  where WEEK(d.fecha,0) = ({$semana})  order by id_empleado";	
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);

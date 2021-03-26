@@ -81,8 +81,6 @@ class VisualizaController extends TCPDF {
   $posicionY=0;
 
 
-		// $venta = new VentaModel();
-		// $ventas = $venta->getById($_POST['id'],'id');
 		if($_POST['type']=='horarios'){
 
 			$titulo="Horarios";
