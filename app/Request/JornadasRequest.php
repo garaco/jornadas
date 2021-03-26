@@ -53,12 +53,28 @@ class JornadasRequest {
 
               <div class="col-md-4">
                   <label for="surname" class="control-label">Entrada</label>
-                  <input type="time" name="entrada" id="enrada" value="<?= $joradas->entrada; ?>" class="form-control" autocomplete="off">
+                  <input 
+                  type="text" 
+                  name="entrada" 
+                  id="enrada" 
+                  value="<?= $joradas->entrada; ?>" 
+                  class="form-control clockpicker" 
+                  data-placement="bottom" data-align="top" data-autoclose="true"
+                  autocomplete="off"
+                  readonly="" >
               </div>
 
               <div class="col-md-4">
                   <label for="surname" class="control-label">Salida</label>
-                  <input type="time" name="salida" id="salida" value="<?= $joradas->salida; ?>" class="form-control" autocomplete="off">
+                  <input 
+                  type="text" 
+                  name="salida" 
+                  id="salida" 
+                  value="<?= $joradas->salida; ?>" 
+                  class="form-control clockpicker" 
+                  data-placement="bottom" data-align="top" data-autoclose="true"
+                  autocomplete="off"
+                  readonly="" >
               </div>
 
             </div>
@@ -70,13 +86,29 @@ class JornadasRequest {
 
               <div class="col-md-3">
                   <label for="surname" class="control-label">Inicio de Horas Extras</label>
-                  <input type="time" name="inicio_extra" id="inicio_extra" value="<?= $joradas->inicio_extra; ?>" class="form-control" required autocomplete="off">
+                  <input 
+                  type="text" 
+                  name="inicio_extra" 
+                  id="inicio_extra" 
+                  value="<?= $joradas->inicio_extra; ?>" 
+                  class="form-control clockpicker" 
+                  data-placement="top" data-align="top" data-autoclose="true"
+                  autocomplete="off"
+                  readonly="" >
               </div>
 
               <div class="col-md-4">
                   <label for="surname" class="control-label">Fin de Horas Extras</label>
                   <div class="input-group mb-2">
-                    <input type="time" name="final_extra" id="final_extra" value="<?= $joradas->final_extra; ?>" class="form-control" required autocomplete="off">
+                    <input 
+                    type="text" 
+                    name="final_extra" 
+                    id="final_extra" 
+                    value="<?= $joradas->final_extra; ?>" 
+                    class="form-control clockpicker" 
+                    data-placement="top" data-align="top" data-autoclose="true"
+                    autocomplete="off"
+                    readonly="" >
                     <div class="input-group-prepend">
                       <button class="btn btn-primary" type="button" name="button" onclick="calculo();"><i class="fa fa-clock-o" aria-hidden="true"></i></button>
                     </div>
@@ -159,3 +191,7 @@ class JornadasRequest {
         }
     }
 }
+?>
+<script type="text/javascript">
+    $('.clockpicker').clockpicker();
+</script>
