@@ -9,18 +9,14 @@ class VisualizaController extends TCPDF {
 
 	public function Header() {
     $html='
-			<table width="100%">
-			<tr>
-				<td>
-				 <p style="color:white" >.<p>
-				</td>
+		<table width="100%" align="center" ><br>
+			<tr style="font-weight: bold;" >
+			<td align="left" style="width:50%;"><img src="public/img/logopdf.png" style="width:40px;" ></td>
+			<td align="right" style="width:50%;"><img src="public/img/logo2.png" style="width:75px;" ></td>
 			</tr>
-			<tr>
-			<td width="100%">
-			<p style="color:white" >.<p>
-			</td>
-		</tr>
 			</table>
+			<hr style="height: 3px; background-color: black;">
+
 		';
 
 
@@ -36,15 +32,7 @@ class VisualizaController extends TCPDF {
         // Set font
         $this->SetFont('helvetica', '', 8);
         // Custom footer HTML
-        $html = '
-		<table align="center" style="width:100%;">
-		<tr>
-		<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
-		Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
-		E-mail: reservtux@ib.unam.mx - www.ib.unam.mx <br>
-		</td>
-		</tr>
-		</table>';
+        $html = '';
         $this->writeHTML($html, true, false, true, false, '');
 
 	}
@@ -111,7 +99,7 @@ class headerpdf extends TCPDF {
   $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
   // remove default
 
-  
+
   // set some language-dependent strings (optional)
   if (@file_exists(dirname(__FILE__).'/lang/spa.php')) {
   	require_once(dirname(__FILE__).'/lang/spa.php');
@@ -204,15 +192,9 @@ class headerpdf extends TCPDF {
 		$lastday = date ('d', $nuevafecha );
 
 
-		$html ='<table width="100%" align="center" ><br>
-			<tr style="font-weight: bold;" >
-			<td align="left" style="width:50%;"><img src="public/img/logopdf.png" style="width:40px;" ></td>
-			<td align="right" style="width:50%;"><img src="public/img/logo2.png" style="width:75px;" ></td>
-			</tr>
-			</table>
-			<hr style="height: 3px; background-color: black;">
-
-			<table width="100%" align="center" style="padding-top:10px;" ><br>
+		$html ='
+			<br><br><br><br><br><br><br><br><br>
+			<table width="100%" align="center" style="padding-top:10px;" >
 				<tr>
 				<td align="left" style="width:60%;">
 					<p style="padding-top:0px;padding-bottom:0px;" >
@@ -385,6 +367,32 @@ class headerpdf extends TCPDF {
 					<td width="5%" style="border: 1px solid #000;" >'.$sum_dom.'</td>
 					<td width="20%" style="border: 1px solid #000;" >TOTAL DE HORAS PRIMA DOMINICAL</td>
 					<td width="5%" style="border: 1px solid #000;" >'.$sum_f.'</td>
+					</tr>
+					</table>
+					<table align="left" style="width:100%; font-size:35px">
+					<tr> <td> sin más por el momento, me despido de usted y me reitero a sus ordenes. </td></tr> </table>
+
+					<table align="right" style="width:100%; font-size:35px">
+				  <tr>	<td> Los Tuxtlas, ver. '.date('d').' de '.$mes[ (int)date('m')].' de '.date('Y').' </td> </tr>
+					</table>
+					<br><br>
+					<table align="center" style="width:100%; font-size:35px">
+					<tr>
+					<td> A T E N T A M E N T E <br>
+					<strong> POR MI RAZA HABLARA EL ESPIRITU </strong> <br><br><br>
+					<strong> LAE . FELIPE N. MORENO MARCIAL </strong> <br>
+					 DELEGADO ADMINISTRATIVO <br>
+					</td>
+					</tr>
+					</table>
+
+					<br><br>
+					<table align="center" style="width:100%;">
+					<tr>
+					<td> Km. 30 carretera Catemaco – Montepio Codigo Postal 95701. – San Andrés Tuxla, Veracruz, México. <br>
+					Tels: Jefatura 01 200 125 54 09 - J.servicio: 01 200 125 54 08 Fax: 01 200 54 07 <br>
+					E-mail: reservtux@ib.unam.mx - www.ib.unam.mx <br>
+					</td>
 					</tr>
 					</table>';
 

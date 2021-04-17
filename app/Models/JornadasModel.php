@@ -94,7 +94,7 @@ class JornadasModel extends Model {
 		(select rfc from empleados where id = d.id_empleado ) as rfc,
 		(select sexo from empleados where id = d.id_empleado ) as sexo,
 		(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
-		from dias_laborados as d  where WEEK(d.fecha,0) = ({$semana})  order by id_empleado";	
+		from dias_laborados as d  where WEEK(d.fecha,0) = ({$semana})  order by id_empleado";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);
@@ -105,7 +105,7 @@ class JornadasModel extends Model {
 			(select rfc from empleados where id = d.id_empleado ) as rfc,
 			(select categoria from categorias where id = (select id_categoria from empleados where id = d.id_empleado )) as categoria,
 			(select concat(nombre,' ',apellidos) from empleados where id = d.id_empleado ) as empleado
-			from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and id_empleado = {$id} order by id_empleado";
+			from dias_laborados as d  where WEEK(d.fecha,0) = {$semana} and id_empleado = {$id} order by id_empleado";
 		$query = Executor::doit($sql);
 
 		return self::many($query[0]);
@@ -113,7 +113,7 @@ class JornadasModel extends Model {
 
 	public function getSumHours($semana,$id,$tipo){
 		$sql="select  TIME_FORMAT(SEC_TO_TIME(SUM(TIME_TO_SEC(d.horas_extras))), '%H:%i')  as horas_extras
-		from dias_laborados as d  where WEEK(d.fecha,1) = {$semana} and FIND_IN_SET(tipo, '{$tipo}')";
+		from dias_laborados as d  where WEEK(d.fecha,0) = {$semana} and FIND_IN_SET(tipo, '{$tipo}')";
 		$query = Executor::doit($sql);
 
 		return self::one($query[0]);
